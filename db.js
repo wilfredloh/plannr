@@ -97,5 +97,5 @@ module.exports = {
 
   // users: userModelsObject,
   account: accountModelsObject,
-  todo: todoModelsObject
+  todo: todoModelsObject,
 };

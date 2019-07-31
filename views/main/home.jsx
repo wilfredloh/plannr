@@ -22,7 +22,7 @@ class Home extends React.Component {
             let todoUrl = `/todos/${todo.id}`
             return(
                 <div>
-                    <a href={todoUrl}><p>{todo.title}</p></a>
+                    <input type="checkbox" value={1}/><a href={todoUrl}> {todo.title}</a>
                 </div>
             )
         })
@@ -33,7 +33,7 @@ class Home extends React.Component {
             let todoUrl = `/todos/${todo.id}`
             return(
                 <div>
-                    <a href={todoUrl}><p>{todo.title}</p></a>
+                    <input type="checkbox" value={1}/><a href={todoUrl}> {todo.title}</a>
                 </div>
             )
         })
@@ -44,7 +44,7 @@ class Home extends React.Component {
             let todoUrl = `/todos/${todo.id}`
             return(
                 <div>
-                    <a href={todoUrl}><p>{todo.title}</p></a>
+                    <input type="checkbox" value={1}/><a href={todoUrl}> {todo.title}</a>
                 </div>
             )
         })
@@ -55,7 +55,7 @@ class Home extends React.Component {
             let todoUrl = `/todos/${todo.id}`
             return(
                 <div>
-                    <a href={todoUrl}><p>{todo.title}</p></a>
+                    <input type="checkbox" value={1}/><a href={todoUrl}> {todo.title}</a>
                 </div>
             )
         })
@@ -69,33 +69,29 @@ class Home extends React.Component {
       <DefaultLayout title={headerTitle} >
         <p> Hello! </p>
 
-        <div>Q1
-            <p>todo goes here</p>
+        <div id="q1" data-id="1">Q1
+            <button id="button1">add</button>
             <div>
                 {todosArr1}
             </div>
-            <a href="/todos/1/new"><button>add</button></a>
         </div>
         <div>Q2
+            <a href="/todos/2/new"><button id="button2">add</button></a>
             <div>
                 {todosArr2}
             </div>
-            <a href="/todos/2/new"><button>add</button></a>
-
         </div>
         <div>Q3
+            <a href="/todos/3/new"><button id="button3">add</button></a>
             <div>
                 {todosArr3}
             </div>
-            <a href="/todos/3/new"><button>add</button></a>
-
         </div>
         <div>Q4
+            <a href="/todos/4/new"><button id="button4">add</button></a>
             <div>
                 {todosArr4}
             </div>
-            <a href="/todos/4/new"><button>add</button></a>
-
         </div>
 
       </DefaultLayout>

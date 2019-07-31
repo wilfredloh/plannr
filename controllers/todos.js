@@ -26,7 +26,6 @@ module.exports = (db) => {
                         user : user,
                         todos : allTodos
                     }
-                    console.log("dataSet", dataSet);
                     res.render('main/home', dataSet);
                 }
                 });

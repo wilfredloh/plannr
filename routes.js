@@ -15,24 +15,29 @@ module.exports = (app, allModels) => {
   // require the controller
   const accountControllerCallbacks = require('./controllers/account')(allModels);
   const todoControllerCallbacks = require('./controllers/todos')(allModels);
+  const ajaxControllerCallbacks = require('./controllers/ajax')(allModels);
 
 
-  // Account routes
-  app.get('/index',         accountControllerCallbacks.showIndex);
-  app.get('/login',         accountControllerCallbacks.showLogin);
-  app.get('/register',      accountControllerCallbacks.showRegister);
+  // ACCOUNT routes
+  app.get('/index',             accountControllerCallbacks.showIndex);
+  app.get('/login',             accountControllerCallbacks.showLogin);
+  app.get('/register',          accountControllerCallbacks.showRegister);
 
-  app.post('/login',        accountControllerCallbacks.login);
-  app.post('/register',     accountControllerCallbacks.register);
-  app.post('/logout',       accountControllerCallbacks.logout);
+  app.post('/login',            accountControllerCallbacks.login);
+  app.post('/register',         accountControllerCallbacks.register);
+  app.post('/logout',           accountControllerCallbacks.logout);
 
-  app.get('/home',          todoControllerCallbacks.showHome);
-  app.get('/todos/:q/new',  todoControllerCallbacks.showCreateTodo);
-  app.get('/todos/:id',     todoControllerCallbacks.showEditTodo);
+  // TODO routes
+  app.get('/home',              todoControllerCallbacks.showHome);
+  app.get('/todos/:q/new',      todoControllerCallbacks.showCreateTodo);
+  app.get('/todos/:id',         todoControllerCallbacks.showEditTodo);
 
-  app.post('/todos',        todoControllerCallbacks.addTodo);
-  app.put('/todos/:id',     todoControllerCallbacks.editTodo);
-  app.delete('/todos/:id',  todoControllerCallbacks.deleteTodo);
+  app.post('/todos',            todoControllerCallbacks.addTodo);
+  app.put('/todos/:id',         todoControllerCallbacks.editTodo);
+  app.delete('/todos/:id',      todoControllerCallbacks.deleteTodo);
+
+  // AJAX TODO routes
+  app.post('/todos/:q/ajax',     ajaxControllerCallbacks.addTodoAjax);
 
 
   // app.get('/newtweet', accountControllerCallbacks.showCreateTweet);

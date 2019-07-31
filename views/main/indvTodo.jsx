@@ -19,9 +19,9 @@ class Home extends React.Component {
 
         <form method="POST" action={editURL}>
             <p>Title</p>
-            <input name = {"title"} defaultValue = {todo.title}/>
+            <input id="input-title" name = {"title"} defaultValue = {todo.title}/>
             <p>Description</p>
-            <input name = {"description"} defaultValue = {todo.description}/>
+            <input id="input-desc" name = {"description"} defaultValue = {todo.description}/>
             <br/>
             <button>Edit Todo</button>
         </form>

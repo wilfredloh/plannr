@@ -13,11 +13,8 @@ module.exports = (dbPoolInstance) => {
     let addTodo = (userId, newTodo, callback) => {
 
         let queryString = `INSERT INTO todos (title, description, quadrant, user_id, category) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
-        let values = [ newTodo.title, newTodo.description, newTodo.quadrant, userId, newTodo.category ];
-
+        let values = [ newTodo.title, newTodo.desc, newTodo.quadrant, userId, newTodo.category ];
         dbPoolInstance.query(queryString, values, (error, queryResult) => {
-            console.log('result of adding a new todo: ~~~~~~~~~~~~~~~~~~')
-            console.table(queryResult);
             if (error) {
                 callback(error, null);
             } else {

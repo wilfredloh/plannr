@@ -21,7 +21,7 @@ class Home extends React.Component {
             <p>Header</p>
             <input name="title"/>
             <p>Description</p>
-            <input name="description"/>
+            <input name="desc"/>
             <p>Quadrant</p>
             <input name="quadrant" value={quadrant}/>
             <br/>
