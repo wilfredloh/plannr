@@ -1,0 +1,11 @@
+body {
+	background-color: darkgrey;
+	/*background-image: url("https://cdn.pixabay.com/photo/2018/10/12/11/34/aerial-3741969_960_720.jpg");*/
+	background-color: #cccccc; /* Used if the image is unavailable */
+  height: 700px;  You must set a specified height
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+  color: white;
+  text-align: center;
+}
