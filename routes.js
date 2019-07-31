@@ -27,8 +27,12 @@ module.exports = (app, allModels) => {
   app.post('/logout',       accountControllerCallbacks.logout);
 
   app.get('/home',          todoControllerCallbacks.showHome);
-  app.get('/todos/:id/new', todoControllerCallbacks.showCreateTodo);
+  app.get('/todos/:q/new',  todoControllerCallbacks.showCreateTodo);
+  app.get('/todos/:id',     todoControllerCallbacks.showEditTodo);
+
   app.post('/todos',        todoControllerCallbacks.addTodo);
+  app.put('/todos/:id',     todoControllerCallbacks.editTodo);
+  app.delete('/todos/:id',  todoControllerCallbacks.deleteTodo);
 
 
   // app.get('/newtweet', accountControllerCallbacks.showCreateTweet);

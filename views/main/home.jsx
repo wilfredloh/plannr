@@ -19,9 +19,10 @@ class Home extends React.Component {
 
     if (todosQ1.length > 0){
         todosArr1 = todosQ1.map((todo) => {
+            let todoUrl = `/todos/${todo.id}`
             return(
                 <div>
-                    <p>{todo.title}</p>
+                    <a href={todoUrl}><p>{todo.title}</p></a>
                 </div>
             )
         })
@@ -29,9 +30,10 @@ class Home extends React.Component {
 
     if (todosQ2.length > 0){
         todosArr2 = todosQ2.map((todo) => {
+            let todoUrl = `/todos/${todo.id}`
             return(
                 <div>
-                    <p>{todo.title}</p>
+                    <a href={todoUrl}><p>{todo.title}</p></a>
                 </div>
             )
         })
@@ -39,9 +41,10 @@ class Home extends React.Component {
 
     if (todosQ3.length > 0){
         todosArr3 = todosQ3.map((todo) => {
+            let todoUrl = `/todos/${todo.id}`
             return(
                 <div>
-                    <p>{todo.title}</p>
+                    <a href={todoUrl}><p>{todo.title}</p></a>
                 </div>
             )
         })
@@ -49,9 +52,10 @@ class Home extends React.Component {
 
     if (todosQ4.length > 0){
         todosArr4 = todosQ4.map((todo) => {
+            let todoUrl = `/todos/${todo.id}`
             return(
                 <div>
-                    <p>{todo.title}</p>
+                    <a href={todoUrl}><p>{todo.title}</p></a>
                 </div>
             )
         })
