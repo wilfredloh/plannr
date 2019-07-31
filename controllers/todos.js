@@ -10,7 +10,53 @@ module.exports = (db) => {
    * ===========================================
    */
 
+    // let showHome = (req, res) => {
+    //     if (checkCookieSession(req)) {
+    //         let userId = req.cookies.user_id;
+    //         db.account.getUserUsingId(userId, (error, user) => {
+    //             db.todo.getTodo(userId, (error, allTodos) => {
+    //             if (error) {
+    //                 console.log("error in getting file", error);
+    //             } else {
+    //                 let dataSet = {
+    //                     user : user,
+    //                     todos : allTodos
+    //                 }
+    //                 console.log("dataSet", dataSet);
+
+    //                 res.render('main/home', dataSet);
+    //             }
+    //             });
+    //         });
+    //     } else {
+    //         res.send('Log in pls. Ur cookie null or wrong la')
+    //     }
+    // };
+
     let showHome = (req, res) => {
+        if (checkCookieSession(req)) {
+            let userId = req.cookies.user_id;
+            db.account.getUserUsingId(userId, (error, user) => {
+                db.todo.getTodo(userId, (error, allTodos) => {
+                if (error) {
+                    console.log("error in getting file", error);
+                } else {
+
+                    let dataSet = {
+                        user : user,
+                        todos : allTodos
+                    }
+                    console.log("dataSet", dataSet);
+                    res.render('main/home', dataSet);
+                }
+                });
+            });
+        } else {
+            res.send('Log in pls. Ur cookie null or wrong la')
+        }
+    };
+
+    let showCreateTodo = (req, res) => {
         if (checkCookieSession(req)) {
             let userId = req.cookies.user_id;
             db.account.getUserUsingId(userId, (error, user) => {
@@ -18,9 +64,26 @@ module.exports = (db) => {
                     console.log("error in getting file", error);
                 } else {
                     let dataSet = {
-                        user : user
+                        user : user,
+                        quadrant : req.params.id
                     }
-                    res.render('main/home', dataSet);
+                    res.render('main/createTodo', dataSet);
+                }
+            });
+        } else {
+            res.send('Log in pls. Ur cookie null or wrong la')
+        }
+    };
+
+    let addTodo = (req, res) => {
+        if (checkCookieSession(req)) {
+            let userId = req.cookies.user_id;
+            let newTodo = req.body;
+            db.todo.addTodo(userId, newTodo, (error, newTodo) => {
+                if (error) {
+                    console.log("error in getting file", error);
+                } else {
+                    res.redirect('/home');
                 }
             });
         } else {
@@ -47,6 +110,8 @@ module.exports = (db) => {
    */
   return {
     showHome,
+    showCreateTodo,
+    addTodo,
   };
 
 }

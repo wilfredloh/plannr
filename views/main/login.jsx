@@ -6,7 +6,7 @@ class Login extends React.Component {
 
     let headerTitle = "Login | Plannr";
 
-    let loginURL = `/home`;
+    let loginURL = `/login`;
     let registerURL = `/register`;
 
     return (

@@ -65,7 +65,7 @@ const accountModelsFunction = require('./models/account');
 const todosModelsFunction = require('./models/todos');
 
 const accountModelsObject = accountModelsFunction( pool );
-const todosModelsObject = todosModelsFunction( pool );
+const todoModelsObject = todosModelsFunction( pool );
 
 
 
@@ -97,5 +97,5 @@ module.exports = {
 
   // users: userModelsObject,
   account: accountModelsObject,
-  todo: todosModelsObject
+  todo: todoModelsObject
 };
