@@ -1,27 +1,43 @@
 console.log("PIKACHU IS IN");
-let timer;
-
 //////////////////////////////////////////////////////////////////////////
 //                              ADD TODO                             //
 //////////////////////////////////////////////////////////////////////////
+let toggleDropdown = (event) => {
+    console.log('you clicked the body!')
+    let tempDiv = document.querySelector('.temp-div');
+    let parent = event.target.parentElement;
+    if (parent === tempDiv) {
+        // do nothing
+    } else {
+        tempDiv.parentElement.removeChild(tempDiv);
+        document.body.onclick='';
+    }
+}
+
 let showCreateForm = (event) => {
     let newDiv = document.createElement('div');
+        newDiv.classList.add('temp-div');
     let inputTitle = document.createElement('input');
-    inputTitle.setAttribute('placeholder', 'title' );
-    inputTitle.classList.add('newTitle');
+        inputTitle.setAttribute('placeholder', 'title' );
+        inputTitle.classList.add('newTitle');
     let inputDesc = document.createElement('input');
-    inputDesc.setAttribute('placeholder', 'description');
-    inputDesc.classList.add('newDesc');
+        inputDesc.setAttribute('placeholder', 'description');
+        inputDesc.classList.add('newDesc');
     let newButton = document.createElement('button');
-    newButton.textContent = 'Submit';
-    newButton.classList.add('newButton');
-    newButton.addEventListener('click', collectNewInput);
+        newButton.textContent = 'Submit';
+        newButton.classList.add('newButton');
+        newButton.addEventListener('click', collectNewInput);
+
     newDiv.appendChild(inputTitle);
     newDiv.appendChild(inputDesc);
     newDiv.appendChild(newButton);
-    let parentDiv = event.target.parentElement;
     let nextSibling = event.target.nextSibling;
-    parentDiv.insertBefore(newDiv, nextSibling);
+    let parentDiv = event.target.parentElement;
+        parentDiv.insertBefore(newDiv, nextSibling);
+
+    setTimeout( () => {
+        document.body.onclick = toggleDropdown;
+    }, 500);
 }
 
 let collectNewInput = (event) => {
@@ -131,8 +147,6 @@ let editTodo = (dataObj, quadrant) => {
 let checkDelete = (event) => {
     // let targetElement = event.target.nextSibling //element after event.target which is
     console.log("targetElement", targetElement);
-
-
     deleteTodo();
 }
 
@@ -163,6 +177,7 @@ let deleteTodo = (dataObj, quadrant) => {
 //////////////////////////////////////////////////////////////////////////
 //                        TOGGLE TODO COMPLETED                         //
 //////////////////////////////////////////////////////////////////////////
+let timer;
 
 let toggleTodo = (event) => {
     let next = event.target.nextSibling;
@@ -215,28 +230,15 @@ let checkTodo = (dataObj, event) => {
     request.send(JSON.stringify(dataObj));
 }
 
-// let uncheckTodo = (dataObj, event) => {
-//     let request = new XMLHttpRequest();   // new HttpRequest instance
-//     let theUrl = `/todos/${dataObj.quadrant}/a-check?_method=PUT`;
-
-//     request.addEventListener("load", function() {
-//         let list = event.target.parentElement;
-//         setTimeout( () => {
-//             list.style.display = 'none';
-//         }, 2000);
-//     });
-//     request.open("POST", theUrl);
-//     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-//     request.send(JSON.stringify(dataObj));
-// }
-
 //////////////////////////////////////////////////////////////////////////
 //                        SET EVENT LISTENERS                           //
 //////////////////////////////////////////////////////////////////////////
 
 for (let i=0; i < 4; i++ ){
-    let button = document.querySelectorAll('.button')[i];
-    button.addEventListener('click', showCreateForm);
+    if (document.querySelector('.button')) {
+        let button = document.querySelectorAll('.button')[i];
+        button.addEventListener('click', showCreateForm);
+    }
     let bigList = document.querySelectorAll('.big-list')[i];
     bigList.addEventListener('click', toggleTodo);
 }
