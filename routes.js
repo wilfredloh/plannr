@@ -28,8 +28,7 @@ module.exports = (app, allModels) => {
   app.post('/logout',           accountControllerCallbacks.logout);
 
   // TODO routes
-  app.get('/home',              todoControllerCallbacks.showCurrent);
-  app.get('/home/completed',    todoControllerCallbacks.showCompleted);
+  app.get('/home',              todoControllerCallbacks.showHome);
   // app.get('/home/all',          todoControllerCallbacks.showAll);
   app.get('/todos/:q/new',      todoControllerCallbacks.showCreateTodo);
   app.get('/todos/:id',         todoControllerCallbacks.showEditTodo);
@@ -44,5 +43,5 @@ module.exports = (app, allModels) => {
   // app.put('/todos/:q/a-edit',   ajaxControllerCallbacks.editTodoAjax);
   // app.delete('/todos/:q/a-del', ajaxControllerCallbacks.deleteTodoAjax);
 
-  app.get('*',              accountControllerCallbacks.redirect);
+  app.get('*',                  accountControllerCallbacks.redirect);
 };

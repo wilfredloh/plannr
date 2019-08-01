@@ -12,20 +12,13 @@ class Index extends React.Component {
     return (
 
       <FrontLayout title={headerTitle}>
-            <br/><br/>
-            <br/><br/>
-            <br/><br/>
-            <br/><br/>
-            <br/><br/>
-            <br/><br/>
-            <br/><br/>
         <h1>Plannr: Plan for Anything</h1>
         <h3>Plannr is the only productivity app you need to *actually* get things done.</h3>
         <form method="POST" action={loginURL}>
             <p>Name:</p>
             <input type={"text"} name={"name"} required/>
             <p>Password:</p>
-            <input type={"text"} name={"password"} required/>
+            <input type={"password"} name={"password"} required/>
             <br/>
             <br/>
             <input type="submit" value="Login"/>

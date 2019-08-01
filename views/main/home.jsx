@@ -13,6 +13,8 @@ class Home extends React.Component {
     let todosArr3 = '';
     let todosArr4 = '';
 
+    let query = this.props.query;
+
     if (this.props.todos === null) {
 
     } else {
@@ -25,133 +27,54 @@ class Home extends React.Component {
             return (
                 array.map((todo) => {
                     let todoUrl = `/todos/${todo.id}`
-                    // let input = '';
-                    // let linkTag = '';
-
-                    // if (todo.completed) {
-                    //     input = <input type="checkbox" defaultValue={todo.id} defaultChecked/>
-                    //     linkTag = <a href={todoUrl} className="checked-todo"> {todo.title}</a>
-                    // }
-                    if (!todo.completed) {
-                        let input = <input type="checkbox" defaultValue={todo.id}/>
-                        let linkTag = <a href={todoUrl}> {todo.title}</a>
-                        return(
-                            <li>
-                                {input}
-                                {linkTag}
-                            </li>
-                        )
-
+                    if (query.display === 'completed') {
+                        if (todo.completed) {
+                            let input = <input type="checkbox" defaultValue={todo.id} defaultChecked/>
+                            let linkTag = <a href={todoUrl} className="checked-todo"> {todo.title}</a>
+                            return(
+                                <li>
+                                    {input}
+                                    {linkTag}
+                                </li>
+                            )
+                        }
+                    } else {
+                        if (!todo.completed) {
+                            let input = <input type="checkbox" defaultValue={todo.id}/>
+                            let linkTag = <a href={todoUrl}> {todo.title}</a>
+                            return(
+                                <li>
+                                    {input}
+                                    {linkTag}
+                                </li>
+                            )
+                        }
                     }
-
-                    // return(
-                    //     <li>
-                    //         {input}
-                    //         {linkTag}
-                    //     </li>
-                    // )
                 })
             )
         }
 
         if (todosQ1.length > 0){
-
             todosArr1 = createList(todosQ1);
-
-            // todosArr1 = todosQ1.map((todo) => {
-            //     let todoUrl = `/todos/${todo.id}`
-            //     let input = <input type="checkbox" defaultValue={todo.id}/>
-            //     let linkTag = <a href={todoUrl}> {todo.title}</a>
-
-            //     if (todo.completed) {
-            //         input = <input type="checkbox" defaultValue={todo.id} defaultChecked/>
-            //         linkTag = <a href={todoUrl} className="checked-todo"> {todo.title}</a>
-            //     }
-            //     return(
-            //         <li>
-            //             {input}
-            //             {linkTag}
-            //         </li>
-            //     )
-            // })
         }
-
-
-
-
         if (todosQ2.length > 0){
             todosArr2 = createList(todosQ2);
-
-            // todosArr2 = todosQ2.map((todo) => {
-            //     let todoUrl = `/todos/${todo.id}`
-            //     let input = <input type="checkbox" defaultValue={todo.id}/>
-            //     let linkTag = <a href={todoUrl}> {todo.title}</a>
-
-            //     if (todo.completed) {
-            //         input = <input type="checkbox" defaultValue={todo.id} defaultChecked/>
-            //         linkTag = <a href={todoUrl} className="checked-todo"> {todo.title}</a>
-            //     }
-            //     return(
-            //         <li>
-            //             {input}
-            //             {linkTag}
-            //         </li>
-            //     )
-            // })
         }
-
         if (todosQ3.length > 0){
             todosArr3 = createList(todosQ3);
-
-            // todosArr3 = todosQ3.map((todo) => {
-            //     let todoUrl = `/todos/${todo.id}`
-            //     let input = <input type="checkbox" defaultValue={todo.id}/>
-            //     let linkTag = <a href={todoUrl}> {todo.title}</a>
-
-            //     if (todo.completed) {
-            //         input = <input type="checkbox" defaultValue={todo.id} defaultChecked/>
-            //         linkTag = <a href={todoUrl} className="checked-todo"> {todo.title}</a>
-            //     }
-            //     return(
-            //         <li>
-            //             {input}
-            //             {linkTag}
-            //         </li>
-            //     )
-            // })
         }
-
         if (todosQ4.length > 0){
             todosArr4 = createList(todosQ4);
-
-            // todosArr4 = todosQ4.map((todo) => {
-            //     let todoUrl = `/todos/${todo.id}`
-            //     let input = <input type="checkbox" defaultValue={todo.id}/>
-            //     let linkTag = <a href={todoUrl}> {todo.title}</a>
-
-            //     if (todo.completed) {
-            //         input = <input type="checkbox" defaultValue={todo.id} defaultChecked/>
-            //         linkTag = <a href={todoUrl} className="checked-todo"> {todo.title}</a>
-            //     }
-            //     return(
-            //         <li>
-            //             {input}
-            //             {linkTag}
-            //         </li>
-            //     )
-            // })
         }
     }
-
-    // let user = this.props.user;
 
     return (
 
       <DefaultLayout title={headerTitle} >
-        <p> Hello! </p>
+        <p> WELCOMEEEEE!!!!! </p>
 
-        <button>Current</button>
-        <button>Completed</button>
+        <a href='/home?display=current'><button>Current</button></a>
+        <a href='/home?display=completed'><button>Completed</button></a>
 
         <div className="quadrant-container">
             <div className="quadrant-duo">

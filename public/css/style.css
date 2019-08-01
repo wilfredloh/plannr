@@ -24,6 +24,8 @@ body {
 
 .quadrants {
 	width: 50%;
+	overflow: auto;
+
 }
 
 .checked-todo {
@@ -32,4 +34,11 @@ body {
 
 .big-list {
 	background-color: green;
+	text-align: left;
+	list-style: none;
+}
+
+input[type=checkbox] {
+	transform: scale(1.1);
+	margin: 10px;
 }

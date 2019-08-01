@@ -10,41 +10,21 @@ module.exports = (db) => {
    * ===========================================
    */
 
-    let showCurrent = (req, res) => {
+    let showHome = (req, res) => {
         if (checkCookieSession(req)) {
             let userId = req.cookies.user_id;
             db.account.getUserUsingId(userId, (error, user) => {
                 db.todo.getAllTodos(userId, (error, allTodos) => {
-                if (error) {
-                    console.log("error in getting file", error);
-                } else {
-                    let dataSet = {
-                        user : user,
-                        todos : allTodos
+                    if (error) {
+                        console.log("error in getting file", error);
+                    } else {
+                        let dataSet = {
+                            user : user,
+                            todos : allTodos,
+                            query : req.query
+                        }
+                        res.render('main/home', dataSet);
                     }
-                    res.render('main/home', dataSet);
-                }
-                });
-            });
-        } else {
-            res.send('Log in pls. Ur cookie null or wrong la')
-        }
-    };
-
-    let showCompleted = (req, res) => {
-        if (checkCookieSession(req)) {
-            let userId = req.cookies.user_id;
-            db.account.getUserUsingId(userId, (error, user) => {
-                db.todo.getAllTodos(userId, (error, allTodos) => {
-                if (error) {
-                    console.log("error in getting file", error);
-                } else {
-                    let dataSet = {
-                        user : user,
-                        todos : allTodos
-                    }
-                    res.render('main/home', dataSet);
-                }
                 });
             });
         } else {
@@ -160,8 +140,7 @@ module.exports = (db) => {
    * ===========================================
    */
   return {
-    showCurrent,
-    showCompleted,
+    showHome,
     showCreateTodo,
     addTodo,
     showEditTodo,

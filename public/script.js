@@ -171,19 +171,14 @@ let toggleTodo = (event) => {
         quadrant: quadrant.dataset.id,
         todoId: event.target.value
     }
-    console.log('you clicked on the big list, now to check what is clicked!!!')
-    console.log('event.targettttttt: ', event.target)
-    console.log('event value: ', event.target.value);
     if (event.target.checked === true) {
         // alert('correct!')
         next.classList.add('checked-todo');
-        // checkTodo(dataObj, event);
     } else {
         // alert('wrong')
         next.classList.remove('checked-todo');
     }
     checkTodo(dataObj, event);
-
 }
 
 let checkTodo = (dataObj, event) => {
@@ -191,14 +186,28 @@ let checkTodo = (dataObj, event) => {
     let theUrl = `/todos/${dataObj.quadrant}/a-check?_method=PUT`;
 
     request.addEventListener("load", function() {
-        let todo = JSON.parse(this.responseText);
-        if (todo.completed) {
-            let list = event.target.parentElement;
-            timer = setTimeout( () => {
-                list.style.display = 'none';
-            }, 1000);
+        let windowURL = new URL(window.location.href);
+        let searchParams = windowURL.searchParams.get('display');
+        let result = JSON.parse(this.responseText);
+
+        if (searchParams === 'completed') {
+            if (!result.completed) {
+                let list = event.target.parentElement;
+                timer = setTimeout( () => {
+                    list.style.display = 'none';
+                }, 1000);
+            } else {
+                clearTimeout(timer);
+            }
         } else {
-            clearTimeout(timer);
+            if (result.completed) {
+                let list = event.target.parentElement;
+                timer = setTimeout( () => {
+                    list.style.display = 'none';
+                }, 1000);
+            } else {
+                clearTimeout(timer);
+            }
         }
     });
     request.open("POST", theUrl);

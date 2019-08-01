@@ -19,7 +19,7 @@ class Login extends React.Component {
             <p>Name:</p>
             <input type={"text"} name={"name"} required/>
             <p>Password:</p>
-            <input type={"text"} name={"password"} required/>
+            <input type={"password"} name={"password"} required/>
             <br/>
             <br/>
             <input type="submit" value="Login"/>
