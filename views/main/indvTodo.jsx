@@ -21,7 +21,7 @@ class Home extends React.Component {
             <p>Title</p>
             <input id="input-title" name = {"title"} defaultValue = {todo.title}/>
             <p>Description</p>
-            <input id="input-desc" name = {"description"} defaultValue = {todo.description}/>
+            <textarea id="input-desc" name = {"description"} defaultValue = {todo.description}/>
             <br/>
             <button>Edit Todo</button>
         </form>

@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS todos (
     title TEXT,
     description TEXT,
     quadrant INTEGER,
+    completed BOOLEAN,
     created TIMESTAMP,
     edited TIMESTAMP,
     user_id INTEGER,
