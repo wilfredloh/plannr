@@ -99,6 +99,26 @@ module.exports = (dbPoolInstance) => {
         });
     }
 
+    let checkTodo = (todoId, callback) => {
+
+        let toggle = true;
+
+        let queryString = 'UPDATE todos SET completed = $1 WHERE id = $2 RETURNING id, quadrant, title';
+        let values = [ toggle, todoId ];
+
+        dbPoolInstance.query(queryString, values, (error, queryResult) => {
+            if( error ){
+                callback(error, null);
+            } else {
+                if ( queryResult.rows.length > 0 ){
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    }
+
     let deleteTodo = (todoId, callback) => {
 
         let queryString = 'DELETE FROM todos WHERE id = $1';
@@ -122,6 +142,7 @@ module.exports = (dbPoolInstance) => {
         getAllTodos,
         getCurrentTodo,
         editTodo,
+        checkTodo,
         deleteTodo,
   };
 };

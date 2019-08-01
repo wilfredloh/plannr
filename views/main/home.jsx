@@ -8,10 +8,10 @@ class Home extends React.Component {
 
     let headerTitle = 'Home | Plannr';
 
-    let todosArr1 = <div></div>
-    let todosArr2 = <div></div>
-    let todosArr3 = <div></div>
-    let todosArr4 = <div></div>
+    let todosArr1 = '';
+    let todosArr2 = '';
+    let todosArr3 = '';
+    let todosArr4 = '';
 
     if (this.props.todos === null) {
 
@@ -21,48 +21,113 @@ class Home extends React.Component {
         let todosQ3 = this.props.todos.q3;
         let todosQ4 = this.props.todos.q4;
 
-        if (todosQ1.length > 0){
-            todosArr1 = todosQ1.map((todo) => {
-                let todoUrl = `/todos/${todo.id}`
-                return(
-                    <div>
-                        <input type="checkbox" defaultValue={1}/><a href={todoUrl}> {todo.title}</a>
-                    </div>
-                )
-            })
+        let createList = (array) => {
+            return (
+                array.map((todo) => {
+                    let todoUrl = `/todos/${todo.id}`
+                    let input = <input type="checkbox" defaultValue={todo.id}/>
+                    let linkTag = <a href={todoUrl}> {todo.title}</a>
+
+                    if (todo.completed) {
+                        input = <input type="checkbox" defaultValue={todo.id} defaultChecked/>
+                        linkTag = <a href={todoUrl} className="checked-todo"> {todo.title}</a>
+                    }
+                    return(
+                        <li>
+                            {input}
+                            {linkTag}
+                        </li>
+                    )
+                })
+            )
         }
 
+        if (todosQ1.length > 0){
+
+            todosArr1 = createList(todosQ1);
+
+            // todosArr1 = todosQ1.map((todo) => {
+            //     let todoUrl = `/todos/${todo.id}`
+            //     let input = <input type="checkbox" defaultValue={todo.id}/>
+            //     let linkTag = <a href={todoUrl}> {todo.title}</a>
+
+            //     if (todo.completed) {
+            //         input = <input type="checkbox" defaultValue={todo.id} defaultChecked/>
+            //         linkTag = <a href={todoUrl} className="checked-todo"> {todo.title}</a>
+            //     }
+            //     return(
+            //         <li>
+            //             {input}
+            //             {linkTag}
+            //         </li>
+            //     )
+            // })
+        }
+
+
+
+
         if (todosQ2.length > 0){
-            todosArr2 = todosQ2.map((todo) => {
-                let todoUrl = `/todos/${todo.id}`
-                return(
-                    <div>
-                        <input type="checkbox" defaultValue={1}/><a href={todoUrl}> {todo.title}</a>
-                    </div>
-                )
-            })
+            todosArr2 = createList(todosQ2);
+
+            // todosArr2 = todosQ2.map((todo) => {
+            //     let todoUrl = `/todos/${todo.id}`
+            //     let input = <input type="checkbox" defaultValue={todo.id}/>
+            //     let linkTag = <a href={todoUrl}> {todo.title}</a>
+
+            //     if (todo.completed) {
+            //         input = <input type="checkbox" defaultValue={todo.id} defaultChecked/>
+            //         linkTag = <a href={todoUrl} className="checked-todo"> {todo.title}</a>
+            //     }
+            //     return(
+            //         <li>
+            //             {input}
+            //             {linkTag}
+            //         </li>
+            //     )
+            // })
         }
 
         if (todosQ3.length > 0){
-            todosArr3 = todosQ3.map((todo) => {
-                let todoUrl = `/todos/${todo.id}`
-                return(
-                    <div>
-                        <input type="checkbox" defaultValue={1}/><a href={todoUrl}> {todo.title}</a>
-                    </div>
-                )
-            })
+            todosArr3 = createList(todosQ3);
+
+            // todosArr3 = todosQ3.map((todo) => {
+            //     let todoUrl = `/todos/${todo.id}`
+            //     let input = <input type="checkbox" defaultValue={todo.id}/>
+            //     let linkTag = <a href={todoUrl}> {todo.title}</a>
+
+            //     if (todo.completed) {
+            //         input = <input type="checkbox" defaultValue={todo.id} defaultChecked/>
+            //         linkTag = <a href={todoUrl} className="checked-todo"> {todo.title}</a>
+            //     }
+            //     return(
+            //         <li>
+            //             {input}
+            //             {linkTag}
+            //         </li>
+            //     )
+            // })
         }
 
         if (todosQ4.length > 0){
-            todosArr4 = todosQ4.map((todo) => {
-                let todoUrl = `/todos/${todo.id}`
-                return(
-                    <div>
-                        <input type="checkbox" defaultValue={1}/><a href={todoUrl}> {todo.title}</a>
-                    </div>
-                )
-            })
+            todosArr4 = createList(todosQ4);
+
+            // todosArr4 = todosQ4.map((todo) => {
+            //     let todoUrl = `/todos/${todo.id}`
+            //     let input = <input type="checkbox" defaultValue={todo.id}/>
+            //     let linkTag = <a href={todoUrl}> {todo.title}</a>
+
+            //     if (todo.completed) {
+            //         input = <input type="checkbox" defaultValue={todo.id} defaultChecked/>
+            //         linkTag = <a href={todoUrl} className="checked-todo"> {todo.title}</a>
+            //     }
+            //     return(
+            //         <li>
+            //             {input}
+            //             {linkTag}
+            //         </li>
+            //     )
+            // })
         }
     }
 
@@ -76,34 +141,34 @@ class Home extends React.Component {
         <button>Current</button>
         <button>Completed</button>
 
-        <div class="quadrant-container">
-            <div class="quadrant-duo">
-                <div class="quadrants" data-id="1">Q1
-                    <button id="button1">add</button>
-                    <div>
+        <div className="quadrant-container">
+            <div className="quadrant-duo">
+                <div className="quadrants" data-id="1">Q1
+                    <button className="button"> + </button>
+                    <ul className="big-list">
                         {todosArr1}
-                    </div>
+                    </ul>
                 </div>
-                <div class="quadrants" data-id="2">Q2
-                    <button id="button2">add</button>
-                    <div>
+                <div className="quadrants" data-id="2">Q2
+                    <button className="button"> + </button>
+                    <ul className="big-list">
                         {todosArr2}
-                    </div>
+                    </ul>
                 </div>
             </div>
 
-            <div class="quadrant-duo">
-                <div class="quadrants" data-id="3">Q3
-                    <button id="button3">add</button>
-                    <div>
+            <div className="quadrant-duo">
+                <div className="quadrants" data-id="3">Q3
+                    <button className="button"> + </button>
+                    <ul className="big-list">
                         {todosArr3}
-                    </div>
+                    </ul>
                 </div>
-                <div class="quadrants" data-id="4">Q4
-                    <button id="button4">add</button>
-                    <div>
+                <div className="quadrants" data-id="4">Q4
+                    <button className="button"> + </button>
+                    <ul className="big-list">
                         {todosArr4}
-                    </div>
+                    </ul>
                 </div>
             </div>
         </div>

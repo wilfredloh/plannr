@@ -25,6 +25,21 @@ module.exports = (db) => {
         }
     };
 
+    let checkTodoAjax = (req, res) => {
+        if (checkCookieSession(req)) {
+            let todoId = req.body.todoId;
+            db.todo.checkTodo(todoId, (error, updatedTodo) => {
+                if (error) {
+                    console.log("error in getting file", error);
+                } else {
+                    res.send(updatedTodo);
+                }
+            });
+        } else {
+            res.send('Log in pls. Ur cookie null or wrong la')
+        }
+    };
+
     // Helper Function to check if current cookie session is valid      //
     let checkCookieSession = (req, res) => {
         let currentCookieSession = req.cookies.loggedin;
@@ -44,6 +59,7 @@ module.exports = (db) => {
    */
   return {
     addTodoAjax,
+    checkTodoAjax,
   };
 
 }

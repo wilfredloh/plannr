@@ -19,7 +19,8 @@ let showCreateForm = (event) => {
     newDiv.appendChild(inputDesc);
     newDiv.appendChild(newButton);
     let parentDiv = event.target.parentElement;
-    parentDiv.insertBefore(newDiv, parentDiv.childNodes[0]);
+    let nextSibling = event.target.nextSibling;
+    parentDiv.insertBefore(newDiv, nextSibling);
 }
 
 let collectNewInput = (event) => {
@@ -39,23 +40,20 @@ let collectNewInput = (event) => {
 let addTodo = (dataObj, quadrant) => {
 
     let request = new XMLHttpRequest();   // new HttpRequest instance
-    let theUrl = `/todos/${dataObj.quadrant}/ajax`;
+    let theUrl = `/todos/${dataObj.quadrant}/a-add`;
 
     request.addEventListener("load", function() {
         let parsed = JSON.parse(this.responseText);
-        let newDiv = document.createElement('div');
+        let newLi = document.createElement('li');
         let newCheckbox = document.createElement('input');
         newCheckbox.setAttribute('type', 'checkbox');
-        newCheckbox.setAttribute('defaultValue', '1');
-
-        // this event listener on checkbox is to toggle completed todo
-        newCheckbox.addEventListener('click', toggleTodoCheck);
-        let newLink = document.createElement('A');
-        newLink.setAttribute('href', `/todos/${parsed[0].id}`);
-        newLink.innerHTML = parsed[0].title;
-        newDiv.appendChild(newCheckbox);
-        newDiv.appendChild(newLink);
-        quadrant.appendChild(newDiv);
+        newCheckbox.setAttribute('defaultValue', parsed[0].id);
+        let newTag = document.createElement('A');
+        newTag.setAttribute('href', `/todos/${parsed[0].id}`);
+        newTag.innerHTML = parsed[0].title;
+        newLi.appendChild(newCheckbox);
+        newLi.appendChild(newTag);
+        quadrant.lastChild.appendChild(newLi);
     });
     request.open("POST", theUrl);
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -129,8 +127,8 @@ let editTodo = (dataObj, quadrant) => {
 //                              DELETE TODO                             //
 //////////////////////////////////////////////////////////////////////////
 
-let toggleTodoCheck = (event) => {
-    let targetElement = event.target.nextSibling //element after event.target which is
+let checkDelete = (event) => {
+    // let targetElement = event.target.nextSibling //element after event.target which is
     console.log("targetElement", targetElement);
 
 
@@ -162,15 +160,56 @@ let deleteTodo = (dataObj, quadrant) => {
 };
 
 //////////////////////////////////////////////////////////////////////////
+//                        TOGGLE TODO COMPLETED                         //
+//////////////////////////////////////////////////////////////////////////
+
+let toggleTodo = (event) => {
+    let next = event.target.nextSibling;
+    let quadrant = event.target.parentElement.parentElement.parentElement;
+    let dataObj = {
+        quadrant: quadrant.dataset.id,
+        todoId: event.target.value
+    }
+    console.log('event value: ', event.target.value);
+    if (event.target.checked === true) {
+        // alert('correct!')
+        next.classList.add('checked-todo');
+        checkTodo(dataObj, event);
+    } else {
+        // alert('wrong')
+        next.classList.remove('checked-todo');
+        uncheckTodo(dataObj, event);
+    }
+}
+
+let checkTodo = (dataObj, event) => {
+    let request = new XMLHttpRequest();   // new HttpRequest instance
+    let theUrl = `/todos/${dataObj.quadrant}/a-check?_method=PUT`;
+
+    request.addEventListener("load", function() {
+        let list = event.target.parentElement;
+        setTimeout( () => {
+            list.style.display = 'none';
+        }, 2000);
+    });
+    request.open("POST", theUrl);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.send(JSON.stringify(dataObj));
+}
+
+let uncheckTodo = () => {
+
+}
+
+//////////////////////////////////////////////////////////////////////////
 //                        SET EVENT LISTENERS                           //
 //////////////////////////////////////////////////////////////////////////
 
-let button1 = document.querySelector('#button1');
-let button2 = document.querySelector('#button2');
-let button3 = document.querySelector('#button3');
-let button4 = document.querySelector('#button4');
+for (let i=0; i < 4; i++ ){
+    let button = document.querySelectorAll('.button')[i];
+    button.addEventListener('click', showCreateForm);
+    let bigList = document.querySelectorAll('.big-list')[i];
+    bigList.addEventListener('click', toggleTodo);
+}
 
-button1.addEventListener('click', showCreateForm);
-button2.addEventListener('click', showCreateForm);
-button3.addEventListener('click', showCreateForm);
-button4.addEventListener('click', showCreateForm);
+//////////////////////////////////////////////////////////////////////////

@@ -24,6 +24,12 @@ body {
 
 .quadrants {
 	width: 50%;
+}
 
-	/*width: 300px;*/
+.checked-todo {
+	background-color: black;
+}
+
+.big-list {
+	background-color: green;
 }

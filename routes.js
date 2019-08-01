@@ -37,9 +37,10 @@ module.exports = (app, allModels) => {
   app.delete('/todos/:id',      todoControllerCallbacks.deleteTodo);
 
   // AJAX TODO routes
-  app.post('/todos/:q/ajax',    ajaxControllerCallbacks.addTodoAjax);
-  app.put('/todos/:q/ajax',     ajaxControllerCallbacks.addTodoAjax);
-  app.delete('/todos/:q/ajax',  ajaxControllerCallbacks.addTodoAjax);
+  app.post('/todos/:q/a-add',   ajaxControllerCallbacks.addTodoAjax);
+  app.put('/todos/:q/a-edit',   ajaxControllerCallbacks.addTodoAjax);
+  app.put('/todos/:q/a-check',  ajaxControllerCallbacks.checkTodoAjax);
+  app.delete('/todos/:q/a-del', ajaxControllerCallbacks.addTodoAjax);
 
 
   // app.get('/newtweet', accountControllerCallbacks.showCreateTweet);
