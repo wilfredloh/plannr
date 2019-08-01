@@ -28,11 +28,18 @@ module.exports = (db) => {
     let checkTodoAjax = (req, res) => {
         if (checkCookieSession(req)) {
             let todoId = req.body.todoId;
-            db.todo.checkTodo(todoId, (error, updatedTodo) => {
-                if (error) {
-                    console.log("error in getting file", error);
+            db.todo.getCurrentTodo(todoId, (error, todo) => {
+                if (todo) {
+                    let checkDone = todo[0].completed;
+                    db.todo.checkTodo(checkDone, todoId, (error, updatedTodo) => {
+                        if (error) {
+                            console.log("error in getting file", error);
+                        } else {
+                            res.send(updatedTodo[0]);
+                        }
+                    });
                 } else {
-                    res.send(updatedTodo);
+                    res.send('no todo from query search!!!!!!');
                 }
             });
         } else {

@@ -10,18 +10,35 @@ module.exports = (db) => {
    * ===========================================
    */
 
-    let showHome = (req, res) => {
+    let showCurrent = (req, res) => {
         if (checkCookieSession(req)) {
             let userId = req.cookies.user_id;
-
             db.account.getUserUsingId(userId, (error, user) => {
-
                 db.todo.getAllTodos(userId, (error, allTodos) => {
-
                 if (error) {
                     console.log("error in getting file", error);
                 } else {
+                    let dataSet = {
+                        user : user,
+                        todos : allTodos
+                    }
+                    res.render('main/home', dataSet);
+                }
+                });
+            });
+        } else {
+            res.send('Log in pls. Ur cookie null or wrong la')
+        }
+    };
 
+    let showCompleted = (req, res) => {
+        if (checkCookieSession(req)) {
+            let userId = req.cookies.user_id;
+            db.account.getUserUsingId(userId, (error, user) => {
+                db.todo.getAllTodos(userId, (error, allTodos) => {
+                if (error) {
+                    console.log("error in getting file", error);
+                } else {
                     let dataSet = {
                         user : user,
                         todos : allTodos
@@ -143,7 +160,8 @@ module.exports = (db) => {
    * ===========================================
    */
   return {
-    showHome,
+    showCurrent,
+    showCompleted,
     showCreateTodo,
     addTodo,
     showEditTodo,

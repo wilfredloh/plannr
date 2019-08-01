@@ -25,19 +25,31 @@ class Home extends React.Component {
             return (
                 array.map((todo) => {
                     let todoUrl = `/todos/${todo.id}`
-                    let input = <input type="checkbox" defaultValue={todo.id}/>
-                    let linkTag = <a href={todoUrl}> {todo.title}</a>
+                    // let input = '';
+                    // let linkTag = '';
 
-                    if (todo.completed) {
-                        input = <input type="checkbox" defaultValue={todo.id} defaultChecked/>
-                        linkTag = <a href={todoUrl} className="checked-todo"> {todo.title}</a>
+                    // if (todo.completed) {
+                    //     input = <input type="checkbox" defaultValue={todo.id} defaultChecked/>
+                    //     linkTag = <a href={todoUrl} className="checked-todo"> {todo.title}</a>
+                    // }
+                    if (!todo.completed) {
+                        let input = <input type="checkbox" defaultValue={todo.id}/>
+                        let linkTag = <a href={todoUrl}> {todo.title}</a>
+                        return(
+                            <li>
+                                {input}
+                                {linkTag}
+                            </li>
+                        )
+
                     }
-                    return(
-                        <li>
-                            {input}
-                            {linkTag}
-                        </li>
-                    )
+
+                    // return(
+                    //     <li>
+                    //         {input}
+                    //         {linkTag}
+                    //     </li>
+                    // )
                 })
             )
         }

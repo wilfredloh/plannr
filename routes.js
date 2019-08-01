@@ -28,7 +28,9 @@ module.exports = (app, allModels) => {
   app.post('/logout',           accountControllerCallbacks.logout);
 
   // TODO routes
-  app.get('/home',              todoControllerCallbacks.showHome);
+  app.get('/home',              todoControllerCallbacks.showCurrent);
+  app.get('/home/completed',    todoControllerCallbacks.showCompleted);
+  // app.get('/home/all',          todoControllerCallbacks.showAll);
   app.get('/todos/:q/new',      todoControllerCallbacks.showCreateTodo);
   app.get('/todos/:id',         todoControllerCallbacks.showEditTodo);
 
@@ -38,21 +40,9 @@ module.exports = (app, allModels) => {
 
   // AJAX TODO routes
   app.post('/todos/:q/a-add',   ajaxControllerCallbacks.addTodoAjax);
-  app.put('/todos/:q/a-edit',   ajaxControllerCallbacks.addTodoAjax);
   app.put('/todos/:q/a-check',  ajaxControllerCallbacks.checkTodoAjax);
-  app.delete('/todos/:q/a-del', ajaxControllerCallbacks.addTodoAjax);
-
-
-  // app.get('/newtweet', accountControllerCallbacks.showCreateTweet);
-  // app.post('/newtweet', accountControllerCallbacks.createTweet);
-
-  // app.get('/tweets', accountControllerCallbacks.showAllTweets);
-  // // app.get('/tweets/:id', accountControllerCallbacks.showAllTweets);
-  // app.get('/users/:id', accountControllerCallbacks.showIndvUser);
-  // app.post('/users/:id', accountControllerCallbacks.followIndvUser);
-  // app.get('/profile', accountControllerCallbacks.showUserProfile);
-
-  // app.get('/following', accountControllerCallbacks.showUserProfile);
+  // app.put('/todos/:q/a-edit',   ajaxControllerCallbacks.editTodoAjax);
+  // app.delete('/todos/:q/a-del', ajaxControllerCallbacks.deleteTodoAjax);
 
   app.get('*',              accountControllerCallbacks.redirect);
 };

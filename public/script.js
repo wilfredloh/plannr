@@ -1,4 +1,5 @@
 console.log("PIKACHU IS IN");
+let timer;
 
 //////////////////////////////////////////////////////////////////////////
 //                              ADD TODO                             //
@@ -47,7 +48,7 @@ let addTodo = (dataObj, quadrant) => {
         let newLi = document.createElement('li');
         let newCheckbox = document.createElement('input');
         newCheckbox.setAttribute('type', 'checkbox');
-        newCheckbox.setAttribute('defaultValue', parsed[0].id);
+        newCheckbox.setAttribute('value', parsed[0].id);
         let newTag = document.createElement('A');
         newTag.setAttribute('href', `/todos/${parsed[0].id}`);
         newTag.innerHTML = parsed[0].title;
@@ -170,16 +171,19 @@ let toggleTodo = (event) => {
         quadrant: quadrant.dataset.id,
         todoId: event.target.value
     }
+    console.log('you clicked on the big list, now to check what is clicked!!!')
+    console.log('event.targettttttt: ', event.target)
     console.log('event value: ', event.target.value);
     if (event.target.checked === true) {
         // alert('correct!')
         next.classList.add('checked-todo');
-        checkTodo(dataObj, event);
+        // checkTodo(dataObj, event);
     } else {
         // alert('wrong')
         next.classList.remove('checked-todo');
-        uncheckTodo(dataObj, event);
     }
+    checkTodo(dataObj, event);
+
 }
 
 let checkTodo = (dataObj, event) => {
@@ -187,19 +191,35 @@ let checkTodo = (dataObj, event) => {
     let theUrl = `/todos/${dataObj.quadrant}/a-check?_method=PUT`;
 
     request.addEventListener("load", function() {
-        let list = event.target.parentElement;
-        setTimeout( () => {
-            list.style.display = 'none';
-        }, 2000);
+        let todo = JSON.parse(this.responseText);
+        if (todo.completed) {
+            let list = event.target.parentElement;
+            timer = setTimeout( () => {
+                list.style.display = 'none';
+            }, 1000);
+        } else {
+            clearTimeout(timer);
+        }
     });
     request.open("POST", theUrl);
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.send(JSON.stringify(dataObj));
 }
 
-let uncheckTodo = () => {
+// let uncheckTodo = (dataObj, event) => {
+//     let request = new XMLHttpRequest();   // new HttpRequest instance
+//     let theUrl = `/todos/${dataObj.quadrant}/a-check?_method=PUT`;
 
-}
+//     request.addEventListener("load", function() {
+//         let list = event.target.parentElement;
+//         setTimeout( () => {
+//             list.style.display = 'none';
+//         }, 2000);
+//     });
+//     request.open("POST", theUrl);
+//     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+//     request.send(JSON.stringify(dataObj));
+// }
 
 //////////////////////////////////////////////////////////////////////////
 //                        SET EVENT LISTENERS                           //

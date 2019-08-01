@@ -99,13 +99,14 @@ module.exports = (dbPoolInstance) => {
         });
     }
 
-    let checkTodo = (todoId, callback) => {
+    let checkTodo = (checkDone, todoId, callback) => {
 
         let toggle = true;
-
-        let queryString = 'UPDATE todos SET completed = $1 WHERE id = $2 RETURNING id, quadrant, title';
-        let values = [ toggle, todoId ];
-
+        if (checkDone) {
+            toggle = false;
+        }
+        let queryString = 'UPDATE todos SET completed = $1 WHERE id = $2 RETURNING id, completed';
+        values = [ toggle, todoId ];
         dbPoolInstance.query(queryString, values, (error, queryResult) => {
             if( error ){
                 callback(error, null);
