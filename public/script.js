@@ -212,10 +212,10 @@ let toggleTodo = (event) => {
     }
     if (event.target.checked === true) {
         // alert('correct!')
-        next.classList.add('checked-todo');
+        next.classList.add('todos-completed');
     } else {
         // alert('wrong')
-        next.classList.remove('checked-todo');
+        next.classList.remove('todos-completed');
     }
     checkTodo(dataObj, event);
 }
@@ -232,9 +232,12 @@ let checkTodo = (dataObj, event) => {
         if (searchParams === 'completed') {
             if (!result.completed) {
                 let list = event.target.parentElement;
+                let tag = event.target.nextSibling;
+                console.log('tagggggggg: ', tag);
+                tag.classList.add('todos')
                 timer = setTimeout( () => {
                     list.style.display = 'none';
-                }, 1000);
+                }, 500);
             } else {
                 clearTimeout(timer);
             }
@@ -243,7 +246,7 @@ let checkTodo = (dataObj, event) => {
                 let list = event.target.parentElement;
                 timer = setTimeout( () => {
                     list.style.display = 'none';
-                }, 1000);
+                }, 500);
             } else {
                 clearTimeout(timer);
             }

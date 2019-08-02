@@ -15,6 +15,8 @@ body {
 .welcome-title {
 	font-size: 35px;
 	color: black;
+	transform: translate(1%, 0%);
+
 }
 
 .quadrant-container {
@@ -40,6 +42,7 @@ body {
 	background-color: #d3cacb;
 	margin: 10px;
 	border-radius: 5px;
+	box-shadow: 1px 1px 8px 2px #888888;
 }
 
 .quadrant-head-container {
@@ -57,10 +60,6 @@ body {
 	color: #1e1e1e;
 }
 
-.checked-todo {
-	background-color: black;
-}
-
 .big-list {
 	/*background-color: green;*/
 	text-align: left;
@@ -70,6 +69,11 @@ body {
 input[type=checkbox] {
 	transform: scale(1.1);
 	margin: 10px;
+	cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+   background-color: black;
 }
 
 .addNewTaskButton {
@@ -88,8 +92,13 @@ input[type=checkbox] {
   padding: 5px 0;
 }
 
+li {
+	margin: 5px 0;
+}
+
 .todos {
 	background-color: white;
+	background: rgba(255,255,255,0.9);
 	border-radius: 5px;
 	padding: 5px 10px;
 	color: black;
@@ -99,7 +108,23 @@ input[type=checkbox] {
 .todos:hover {
 	text-decoration: none;
 	color: black;
+}
 
+.todos-completed {
+	background-color: white;
+	background: rgba(255,255,255,0.9);
+	border-radius: 5px;
+	padding: 5px 10px;
+	color: grey;
+	text-decoration: line-through;
+}
+.todos-completed:hover {
+	text-decoration: line-through;
+	color: grey;
+}
+
+.view-container {
+	transform: translate(1%, 0%);
 }
 
 .toggleViewButton {
@@ -123,7 +148,7 @@ input[type=checkbox] {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
+  margin: 4px 10px;
   cursor: pointer;
 }
 
@@ -148,9 +173,47 @@ input[type=checkbox] {
   border: none;
   background-color: #f8f9fa;
   color: #7c7c7d;
-  padding: 8px;
+  padding: 12px 9px;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
+}
+
+*:focus {
+  outline: none;
+}
+
+
+@media only screen and (max-width: 576px) {
+  body {
+    background-color: green;
+  }
+
+  .quadrant-container {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.quadrant-duo {
+		width: 100%;
+		height: 18em;
+		display: flex;
+		flex-direction: column;
+
+		/*background-color: black;*/
+		/*border-radius: 20px;*/
+	}
+
+  .quadrants {
+		width: 100%;
+		overflow: auto;
+		color: black;
+		background-color: #d3cacb;
+		margin: 10px;
+		border-radius: 5px;
+		box-shadow: 1px 1px 8px 2px #888888;
+	}
+
+
 }

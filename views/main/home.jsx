@@ -51,7 +51,7 @@ class Home extends React.Component {
                     let todoUrl = `/todos/${todo.id}`
                     if (todo.completed) {
                         let input = <input type="checkbox" defaultValue={todo.id} defaultChecked/>
-                        let linkTag = <a href={todoUrl} className="checked-todo todos"> {todo.title}</a>
+                        let linkTag = <a href={todoUrl} className="todos-completed"> {todo.title}</a>
                         return(
                             <li>
                                 {input}
@@ -106,10 +106,10 @@ class Home extends React.Component {
     return (
       <DefaultLayout title={headerTitle} >
         <div className="welcome-title"> Welcome, {this.props.user.name} </div>
-
-        <a href='/home?display=current'>{currentButton}</a>
-        <a href='/home?display=completed'>{completeButton}</a>
-
+        <div className="view-container">
+            <a href='/home?display=current'>{currentButton}</a>
+            <a href='/home?display=completed'>{completeButton}</a>
+        </div>
         <div className="quadrant-container">
             <div className="quadrant-duo">
                 <div className="quadrants" data-id="1">
