@@ -21,7 +21,7 @@ class NavBar extends React.Component {
                 <a className="nav-link" href="/tweets">Sprint</a>
               </li>
               <form method="POST" action="/logout">
-                <button type={"submit"}>Logout</button>
+                <button type="submit" className="logoutButton">Logout</button>
               </form>
 
             </ul>

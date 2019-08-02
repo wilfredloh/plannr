@@ -12,17 +12,43 @@ class Home extends React.Component {
     let editURL = `/todos/${todo.id}?_method=PUT`
     let deleteURL = `/todos/${todo.id}?_method=DELETE`
 
+    let currentQuadrant = '';
+    let quadrantDesc = ['Do First', 'Schedule', 'Delegate', "Do Last"];
+    for (let i=0; i<quadrantDesc.length; i++) {
+        if ( todo.quadrant == (i+1)) {
+            currentQuadrant = quadrantDesc[i];
+        }
+    }
+
+    let editedTodoTime = '';
+    if (todo.edited) {
+        editedTodoTime = `Last Modified: ${todo.edited}`
+
+    }
+
     return (
 
       <DefaultLayout title={headerTitle} >
-        <p> Hello! </p>
 
         <form method="POST" action={editURL}>
             <p>Title</p>
-            <input id="input-title" name = {"title"} defaultValue = {todo.title}/>
+            <input id="input-title" name = "title" defaultValue = {todo.title}/>
             <p>Description</p>
-            <textarea id="input-desc" name = {"description"} defaultValue = {todo.description}/>
+            <textarea id="input-desc" name = "description" defaultValue = {todo.description}/>
             <br/>
+            <p>Current Priority: {currentQuadrant}</p>
+            <p>Set Priority:</p>
+            <select name="quadrant">
+                <option value="1">Do First</option>
+                <option value="2">Schedule</option>
+                <option value="3">Delegate</option>
+                <option value="4">Do Last</option>
+            </select>
+            <br/>
+            <br/>
+            <p>Created: {todo.created}</p>
+            <p>{editedTodoTime}</p>
+
             <button>Edit Todo</button>
         </form>
 

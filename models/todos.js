@@ -1,10 +1,11 @@
 const sha256 = require('js-sha256');
-
 /**
  * ===========================================
  * Export model functions as a module
  * ===========================================
  */
+let months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+
 
 module.exports = (dbPoolInstance) => {
 
@@ -12,8 +13,21 @@ module.exports = (dbPoolInstance) => {
 
     let addTodo = (userId, newTodo, callback) => {
 
-        let queryString = `INSERT INTO todos (title, description, quadrant, user_id, category) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
-        let values = [ newTodo.title, newTodo.desc, newTodo.quadrant, userId, newTodo.category ];
+        let d = new Date();
+        let formattedMinutes = d.getMinutes();
+        let formattedSeconds = d.getSeconds();
+
+        if (formattedMinutes < 10) {
+            formattedMinutes = `0${d.getMinutes()}`
+        }
+        if (formattedSeconds < 10) {
+            formattedSeconds = `0${d.getSeconds()}`
+
+        }
+        let currentDate = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()} at ${d.getHours()}:${formattedMinutes}:${formattedSeconds}`;
+
+        let queryString = `INSERT INTO todos (title, description, quadrant, user_id, created, category) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
+        let values = [ newTodo.title, newTodo.desc, newTodo.quadrant, userId, currentDate, newTodo.category ];
         dbPoolInstance.query(queryString, values, (error, queryResult) => {
             if (error) {
                 callback(error, null);
@@ -83,8 +97,21 @@ module.exports = (dbPoolInstance) => {
 
     let editTodo = (todoId, editedTodo, callback) => {
 
-        let queryString = 'UPDATE todos SET title = $1, description = $2 WHERE id = $3';
-        let values = [ editedTodo.title, editedTodo.description, todoId ];
+        let d = new Date();
+        let formattedMinutes = d.getMinutes();
+        let formattedSeconds = d.getSeconds();
+
+        if (formattedMinutes < 10) {
+            formattedMinutes = `0${d.getMinutes()}`
+        }
+        if (formattedSeconds < 10) {
+            formattedSeconds = `0${d.getSeconds()}`
+
+        }
+        let currentDate = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()} at ${d.getHours()}:${formattedMinutes}:${formattedSeconds}`;
+
+        let queryString = 'UPDATE todos SET title = $1, description = $2, edited = $3, quadrant = $4 WHERE id = $5';
+        let values = [ editedTodo.title, editedTodo.description, currentDate, editedTodo.quadrant, todoId ];
 
         dbPoolInstance.query(queryString, values, (error, queryResult) => {
             if( error ){

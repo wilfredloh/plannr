@@ -6,19 +6,28 @@ let toggleDropdown = (event) => {
     console.log('you clicked the body!')
     let tempDiv = document.querySelector('.temp-div');
     let parent = event.target.parentElement;
-    let button = document.querySelector('.newButton');
+    let submitButton = document.querySelector('.newButton');
+    let addTodoButton = document.querySelector('.addNewTaskButton');
 
     if (parent === tempDiv) {
-        if (event.target === button ) {
+        if (event.target === submitButton ) {
             tempDiv.parentElement.removeChild(tempDiv);
+            for (let i=0; i < 4; i++ ){
+            let button = document.querySelectorAll('.addNewTaskButton')[i];
+                if (button.style.display !== 'inline-block') {
+                    button.style.display = 'inline-block';
+                }
+            }
         }
     } else {
         tempDiv.parentElement.removeChild(tempDiv);
         document.body.onclick='';
-        // for (let i=0; i < 4; i++ ){
-        //     let button = document.querySelectorAll('.addNewTaskButton')[i];
-        //     button.style.display = 'flex';
-        // }
+        for (let i=0; i < 4; i++ ){
+        let button = document.querySelectorAll('.addNewTaskButton')[i];
+            if (button.style.display !== 'inline-block') {
+                button.style.display = 'inline-block';
+            }
+        }
     }
 }
 
@@ -44,11 +53,7 @@ let showCreateForm = (event) => {
     let parentDiv = event.target.parentElement;
         parentDiv.insertBefore(newDiv, nextSibling);
 
-    // event.target.style.display = 'none';
-    // for (let i=0; i < 4; i++ ){
-    //     let button = document.querySelectorAll('.addNewTaskButton')[i];
-    //     button.style.display = 'none';
-    // }
+    event.target.style.display = 'none';
 
     setTimeout( () => {
         document.body.onclick = toggleDropdown;
@@ -59,8 +64,6 @@ let collectNewInput = (event) => {
     let input1 = document.querySelector('.newTitle');
     let input2 = document.querySelector('.newDesc');
     let quadrant = event.target.parentElement.parentElement.parentElement.parentElement;
-    // console.log("eventt", eventt);
-    // let quadrant = event.target.parentElement.parentElement;
     let dataObj = {
         title: input1.value,
         desc: input2.value,

@@ -11,8 +11,8 @@ CREATE TABLE IF NOT EXISTS todos (
     description TEXT,
     quadrant INTEGER,
     completed BOOLEAN DEFAULT false,
-    created TIMESTAMP,
-    edited TIMESTAMP,
+    created TEXT,
+    edited TEXT,
     user_id INTEGER,
     category INTEGER
 );
