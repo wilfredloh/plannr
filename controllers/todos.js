@@ -19,7 +19,7 @@ module.exports = (db) => {
                         console.log("error in getting file", error);
                     } else {
                         let dataSet = {
-                            user : user,
+                            user : user[0],
                             todos : allTodos,
                             query : req.query
                         }

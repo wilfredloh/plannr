@@ -7,14 +7,24 @@ let toggleDropdown = (event) => {
     let tempDiv = document.querySelector('.temp-div');
     let parent = event.target.parentElement;
     if (parent === tempDiv) {
-        // do nothing
+        // for (let i=0; i < 4; i++ ){
+        //     let button = document.querySelectorAll('.newButton')[i];
+        //     if (button === event.target){
+        //         tempDiv.parentElement.removeChild(tempDiv);
+        //     }
+        // }
     } else {
         tempDiv.parentElement.removeChild(tempDiv);
         document.body.onclick='';
+        // for (let i=0; i < 4; i++ ){
+        //     let button = document.querySelectorAll('.addNewTaskButton')[i];
+        //     button.style.display = 'flex';
+        // }
     }
 }
 
 let showCreateForm = (event) => {
+    console.log('create form running')
     let newDiv = document.createElement('div');
         newDiv.classList.add('temp-div');
     let inputTitle = document.createElement('input');
@@ -34,6 +44,12 @@ let showCreateForm = (event) => {
     let nextSibling = event.target.nextSibling;
     let parentDiv = event.target.parentElement;
         parentDiv.insertBefore(newDiv, nextSibling);
+
+    // event.target.style.display = 'none';
+    // for (let i=0; i < 4; i++ ){
+    //     let button = document.querySelectorAll('.addNewTaskButton')[i];
+    //     button.style.display = 'none';
+    // }
 
     setTimeout( () => {
         document.body.onclick = toggleDropdown;
@@ -56,10 +72,13 @@ let collectNewInput = (event) => {
 
 let addTodo = (dataObj, quadrant) => {
 
+    console.log('quadranntttt: ', quadrant)
+
     let request = new XMLHttpRequest();   // new HttpRequest instance
     let theUrl = `/todos/${dataObj.quadrant}/a-add`;
 
     request.addEventListener("load", function() {
+        console.log('quadranntttt after done: ', quadrant)
         let parsed = JSON.parse(this.responseText);
         let newLi = document.createElement('li');
         let newCheckbox = document.createElement('input');
@@ -235,8 +254,8 @@ let checkTodo = (dataObj, event) => {
 //////////////////////////////////////////////////////////////////////////
 
 for (let i=0; i < 4; i++ ){
-    if (document.querySelector('.button')) {
-        let button = document.querySelectorAll('.button')[i];
+    if (document.querySelector('.addNewTaskButton')) {
+        let button = document.querySelectorAll('.addNewTaskButton')[i];
         button.addEventListener('click', showCreateForm);
     }
     let bigList = document.querySelectorAll('.big-list')[i];

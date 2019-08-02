@@ -12,7 +12,9 @@ class Home extends React.Component {
     let todosArr2 = '';
     let todosArr3 = '';
     let todosArr4 = '';
-    let button;
+    let addButton;
+    let currentButton = <button className="toggleViewButton">Current</button>;
+    let completeButton = <button className="toggleViewButton">Completed</button>;
 
     let query = this.props.query;
 
@@ -31,7 +33,7 @@ class Home extends React.Component {
                     let todoUrl = `/todos/${todo.id}`
                     if (!todo.completed) {
                         let input = <input type="checkbox" defaultValue={todo.id}/>
-                        let linkTag = <a href={todoUrl}> {todo.title}</a>
+                        let linkTag = <a href={todoUrl} className="todos"> {todo.title}</a>
                         return(
                             <li>
                                 {input}
@@ -49,7 +51,7 @@ class Home extends React.Component {
                     let todoUrl = `/todos/${todo.id}`
                     if (todo.completed) {
                         let input = <input type="checkbox" defaultValue={todo.id} defaultChecked/>
-                        let linkTag = <a href={todoUrl} className="checked-todo"> {todo.title}</a>
+                        let linkTag = <a href={todoUrl} className="checked-todo todos"> {todo.title}</a>
                         return(
                             <li>
                                 {input}
@@ -95,29 +97,32 @@ class Home extends React.Component {
     }
 
     if (query.display === 'completed') {
-        // do nothing
+        completeButton = <button className="toggleViewButton-focus">Completed</button>;
     } else {
-        button = <button className="button"> + </button>;
+        addButton = <button className="addNewTaskButton"> + </button>;
+        currentButton = <button className="toggleViewButton-focus">Current</button>;
     }
 
     return (
-
       <DefaultLayout title={headerTitle} >
-        <p> WELCOMEEEEE!!!!! </p>
+        <div className="welcome-title"> Welcome, {this.props.user.name} </div>
 
-        <a href='/home?display=current'><button>Current</button></a>
-        <a href='/home?display=completed'><button>Completed</button></a>
+        <a href='/home?display=current'>{currentButton}</a>
+        <a href='/home?display=completed'>{completeButton}</a>
 
         <div className="quadrant-container">
             <div className="quadrant-duo">
-                <div className="quadrants" data-id="1">Q1
-                    {button}
+                <div className="quadrants" data-id="1">
+                    <div className="quadrant-head-container">
+                        <span className="quadrant-header">Do First</span>
+                        <span>{addButton}</span>
+                    </div>
                     <ul className="big-list">
                         {todosArr1}
                     </ul>
                 </div>
-                <div className="quadrants" data-id="2">Q2
-                    {button}
+                <div className="quadrants" data-id="2">Schedule
+                    {addButton}
                     <ul className="big-list">
                         {todosArr2}
                     </ul>
@@ -125,14 +130,14 @@ class Home extends React.Component {
             </div>
 
             <div className="quadrant-duo">
-                <div className="quadrants" data-id="3">Q3
-                    {button}
+                <div className="quadrants" data-id="3">Delegate
+                    {addButton}
                     <ul className="big-list">
                         {todosArr3}
                     </ul>
                 </div>
-                <div className="quadrants" data-id="4">Q4
-                    {button}
+                <div className="quadrants" data-id="4">Don't Do
+                    {addButton}
                     <ul className="big-list">
                         {todosArr4}
                     </ul>
