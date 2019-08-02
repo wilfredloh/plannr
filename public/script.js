@@ -6,13 +6,12 @@ let toggleDropdown = (event) => {
     console.log('you clicked the body!')
     let tempDiv = document.querySelector('.temp-div');
     let parent = event.target.parentElement;
+    let button = document.querySelector('.newButton');
+
     if (parent === tempDiv) {
-        // for (let i=0; i < 4; i++ ){
-        //     let button = document.querySelectorAll('.newButton')[i];
-        //     if (button === event.target){
-        //         tempDiv.parentElement.removeChild(tempDiv);
-        //     }
-        // }
+        if (event.target === button ) {
+            tempDiv.parentElement.removeChild(tempDiv);
+        }
     } else {
         tempDiv.parentElement.removeChild(tempDiv);
         document.body.onclick='';
@@ -59,7 +58,9 @@ let showCreateForm = (event) => {
 let collectNewInput = (event) => {
     let input1 = document.querySelector('.newTitle');
     let input2 = document.querySelector('.newDesc');
-    let quadrant = event.target.parentElement.parentElement;
+    let quadrant = event.target.parentElement.parentElement.parentElement.parentElement;
+    // console.log("eventt", eventt);
+    // let quadrant = event.target.parentElement.parentElement;
     let dataObj = {
         title: input1.value,
         desc: input2.value,
@@ -78,13 +79,14 @@ let addTodo = (dataObj, quadrant) => {
     let theUrl = `/todos/${dataObj.quadrant}/a-add`;
 
     request.addEventListener("load", function() {
-        console.log('quadranntttt after done: ', quadrant)
         let parsed = JSON.parse(this.responseText);
+        console.log(parsed);
         let newLi = document.createElement('li');
         let newCheckbox = document.createElement('input');
         newCheckbox.setAttribute('type', 'checkbox');
         newCheckbox.setAttribute('value', parsed[0].id);
         let newTag = document.createElement('A');
+        newTag.classList.add('todos')
         newTag.setAttribute('href', `/todos/${parsed[0].id}`);
         newTag.innerHTML = parsed[0].title;
         newLi.appendChild(newCheckbox);

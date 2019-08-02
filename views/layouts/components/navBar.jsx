@@ -15,10 +15,10 @@ class NavBar extends React.Component {
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
               <li className="nav-item">
-                <a className="nav-link" href="/tweets">Sprint</a>
+                <a className="nav-link" href="/newtweet">New Board</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/newtweet">New Board</a>
+                <a className="nav-link" href="/tweets">Sprint</a>
               </li>
               <form method="POST" action="/logout">
                 <button type={"submit"}>Logout</button>

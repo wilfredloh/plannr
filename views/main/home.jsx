@@ -121,8 +121,11 @@ class Home extends React.Component {
                         {todosArr1}
                     </ul>
                 </div>
-                <div className="quadrants" data-id="2">Schedule
-                    {addButton}
+                <div className="quadrants" data-id="2">
+                    <div className="quadrant-head-container">
+                        <span className="quadrant-header">Schedule</span>
+                        <span>{addButton}</span>
+                    </div>
                     <ul className="big-list">
                         {todosArr2}
                     </ul>
@@ -130,14 +133,20 @@ class Home extends React.Component {
             </div>
 
             <div className="quadrant-duo">
-                <div className="quadrants" data-id="3">Delegate
-                    {addButton}
+                <div className="quadrants" data-id="3">
+                    <div className="quadrant-head-container">
+                        <span className="quadrant-header">Delegate</span>
+                        <span>{addButton}</span>
+                    </div>
                     <ul className="big-list">
                         {todosArr3}
                     </ul>
                 </div>
-                <div className="quadrants" data-id="4">Don't Do
-                    {addButton}
+                <div className="quadrants" data-id="4">
+                    <div className="quadrant-head-container">
+                        <span className="quadrant-header">Don't Do</span>
+                        <span>{addButton}</span>
+                    </div>
                     <ul className="big-list">
                         {todosArr4}
                     </ul>
