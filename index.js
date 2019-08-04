@@ -57,7 +57,7 @@ setRoutesFunction(app, allModels);
 
 /**
  * ===================================
- * Listen to requests on port 3000
+ * Listen to requests on port 1112
  * ===================================
  */
 const PORT = process.env.PORT || 1112;

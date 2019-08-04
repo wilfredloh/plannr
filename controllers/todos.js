@@ -134,6 +134,30 @@ module.exports = (db) => {
         return false;
     };
 
+    let newBoard = (req,res) => {
+        if (checkCookieSession(req)) {
+            res.render('main/howto')
+        } else {
+            res.send('Log in pls. Ur cookie null or wrong la')
+        }
+    }
+
+    let showSprint = (req,res) => {
+        if (checkCookieSession(req)) {
+            res.render('main/howto')
+        } else {
+            res.send('Log in pls. Ur cookie null or wrong la')
+        }
+    }
+
+    let showTips = (req,res) => {
+        if (checkCookieSession(req)) {
+            res.render('main/howto')
+        } else {
+            res.send('Log in pls. Ur cookie null or wrong la')
+        }
+    }
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -146,6 +170,9 @@ module.exports = (db) => {
     showEditTodo,
     editTodo,
     deleteTodo,
+    showTips,
+    newBoard,
+
   };
 
 }

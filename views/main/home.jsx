@@ -17,6 +17,7 @@ class Home extends React.Component {
     let completeButton = <button className="toggleViewButton">Completed</button>;
 
     let query = this.props.query;
+    let user = this.props.user;
 
     if (this.props.todos === null) {
 
@@ -104,7 +105,7 @@ class Home extends React.Component {
     }
 
     return (
-      <DefaultLayout title={headerTitle} >
+      <DefaultLayout title={headerTitle} user={user}>
         <div className="welcome-title"> Welcome, {this.props.user.name} </div>
         <div className="view-container">
             <a href='/home?display=current'>{currentButton}</a>
@@ -153,6 +154,8 @@ class Home extends React.Component {
                 </div>
             </div>
         </div>
+
+
 
       </DefaultLayout>
     );

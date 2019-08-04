@@ -23,14 +23,15 @@ class Register extends React.Component {
             <input type={"password"} name={"password"} required/>
             <p>Email:</p>
             <input type={"text"} name={"email"} required/>
+
             <br/>
             <br/>
-            <input type="submit" value="Sign up"/>
+            <button type="submit" class="btn btn-outline-primary">Sign up</button>
         </form>
         <br/>
         <p>Already have an account? Login instead</p>
         <form action={loginURL}>
-            <button type={"submit"}>Login</button>
+            <button type="submit" class="btn btn-outline-dark">Login</button>
         </form>
 
       </FrontLayout>

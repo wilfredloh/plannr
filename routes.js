@@ -37,6 +37,9 @@ module.exports = (app, allModels) => {
   app.put('/todos/:id',         todoControllerCallbacks.editTodo);
   app.delete('/todos/:id',      todoControllerCallbacks.deleteTodo);
 
+  app.get('/howto',             todoControllerCallbacks.showTips);
+
+
   // AJAX TODO routes
   app.post('/todos/:q/a-add',   ajaxControllerCallbacks.addTodoAjax);
   app.put('/todos/:q/a-check',  ajaxControllerCallbacks.checkTodoAjax);

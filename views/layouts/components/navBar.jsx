@@ -3,31 +3,47 @@ const React = require('react');
 class NavBar extends React.Component {
   render() {
 
-    // let user = this.props.user;
+    let user = this.props.user;
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <a className="navbar-brand" href="/home">
+            <img src="/css/images/plannr.png" width="auto" height="28" className="d-inline-block align-top" alt="logo"/>
+          </a>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <a className="navbar-brand" href="/home">Plannr</a>
-
-          <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
+          <div className="collapse navbar-collapse" id="navbarText">
+            <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <a className="nav-link" href="/newtweet">New Board</a>
+                <a className="nav-link" href="/projects">Projects</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/tweets">Sprint</a>
+                <a className="nav-link" href="/howto">How To</a>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/tweets">How To</a>
-              </li>
-              <form method="POST" action="/logout">
-                <button type="submit" className="logoutButton">Logout</button>
-              </form>
-
             </ul>
+
+            <div className="btn-group menu1">
+              <button type="button" className="btn btn-light dropdown" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                {user.name}
+              </button>
+              <div className="dropdown-menu dropdown-menu-lg-right ">
+                <button className="dropdown-item" type="button"><a href="/profile">Manage Account</a>
+                </button>
+                <button className="dropdown-item" type="button"><a href="/themes">Switch Themes</a>
+                </button>
+                <form id="logout" method="POST" action="/logout">
+                    <button className="dropdown-item" type="submit">Sign Out</button>
+                </form>
+              </div>
+            </div>
+            <div className="menu2">
+                <button className="dropdown-item" type="button"><a href="/profile">Manage Account</a></button>
+                <button className="dropdown-item" type="button"><a href="/themes">Switch Themes</a></button>
+                <form id="logout" method="POST" action="/logout">
+                    <button className="dropdown-item" type="submit">Sign Out</button>
+                </form>
+            </div>
           </div>
         </nav>
     );
@@ -35,3 +51,5 @@ class NavBar extends React.Component {
 }
 
 module.exports = NavBar;
+
+                    // <a href="javascript: logout()">Sign Out</a>

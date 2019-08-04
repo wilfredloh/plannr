@@ -11,6 +11,7 @@ class Home extends React.Component {
 
     let editURL = `/todos/${todo.id}?_method=PUT`
     let deleteURL = `/todos/${todo.id}?_method=DELETE`
+    let user = this.props.user
 
     let currentQuadrant = '';
     let quadrantDesc = ['Do First', 'Schedule', 'Delegate', "Do Last"];
@@ -28,7 +29,7 @@ class Home extends React.Component {
 
     return (
 
-      <DefaultLayout title={headerTitle} >
+      <DefaultLayout title={headerTitle} user={user}>
 
         <form method="POST" action={editURL}>
             <p>Title</p>
