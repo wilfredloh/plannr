@@ -38,10 +38,10 @@ module.exports = (app, allModels) => {
   app.delete('/todos/:id',      todoControllerCallbacks.deleteTodo);
 
   app.get('/howto',             todoControllerCallbacks.showTips);
-  app.get('/stats',             todoControllerCallbacks.showStats);
-  app.get('/statsAjax',         ajaxControllerCallbacks.getStats);
+  app.get('/stats',             todoControllerCallbacks.getStats);
 
   // AJAX TODO routes
+  app.get('/statsAjax',         todoControllerCallbacks.getStatsAjax);
   app.post('/todos/:q/a-add',   ajaxControllerCallbacks.addTodoAjax);
   app.put('/todos/:q/a-check',  ajaxControllerCallbacks.checkTodoAjax);
   // app.put('/todos/:q/a-edit',   ajaxControllerCallbacks.editTodoAjax);

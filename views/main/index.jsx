@@ -41,10 +41,10 @@ class Index extends React.Component {
             </div>
           </div>
         </section>
-                                {/*   Section A    */}
-        <section className="section-a">
+                                {/*   Section C    */}
+        <section className="section-c">
           <div className="container">
-            <img src="https://www.any.do/v4/images/translations/en/to-do-list/main-image@2x.jpg" alt="" />
+            <img src="https://datavizproject.com/wp-content/uploads/2015/10/1-Line-Chart.png" alt="" />
             <div>
               <h2>Never worry about forgetting things again</h2>
               <p>

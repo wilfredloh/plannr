@@ -22,7 +22,7 @@ class NavBar extends React.Component {
                 <a className="nav-link" href="/stats">Stats</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/howto">How To</a>
+                <a className="nav-link" href="/howto">Getting Started</a>
               </li>
             </ul>
 

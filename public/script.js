@@ -267,69 +267,64 @@ let getData = () => {
 
     request.addEventListener("load", function() {
         let result = JSON.parse(this.responseText);
-        let week = {
-            day0 : {created: 0, completed: 0},
-            day1 : {created: 0, completed: 0},
-            day2 : {created: 0, completed: 0},
-            day3 : {created: 0, completed: 0},
-            day4 : {created: 0, completed: 0},
-            day5 : {created: 0, completed: 0},
-            day6 : {created: 0, completed: 0}
-        }
-
-        let created = result.createdTodos;
-        let completed = result.completedTodos;
-        let firstDay = parseInt(created.firstDay);
-
-        // 1. Use FirstDay as to set Day 0
-        // 2. For every todo that has been created, loop through each one and check if (First Day + j) matches the day that the todo was created
-        // 3. If yes, add a counter to the respective day in the object week
-        for (let i=0; i < created.results.length; i++) {
-            let eachTodo = created.results[i].created_day;
-            for (let j=0; j< 7; j++) {
-                if (eachTodo === (j+firstDay)) {
-                    week[`day${j}`].created++;
-                }
-            }
-        }
-
-        for (let i=0; i < completed.results.length; i++) {
-            let eachTodo = completed.results[i].completed_day;
-            for (let j=0; j< 7; j++) {
-                if (eachTodo === (j+firstDay)) {
-                    week[`day${j}`].completed++;
-                }
-            }
-        }
-        runGoogleCharts(week);
+        runGoogleCharts(result);
     });
     request.open("GET", theUrl);
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.send();
 }
 
+// let runGoogleCharts = (week) => {
+//     google.charts.load('current', {'packages':['corechart']});
+//     google.charts.setOnLoadCallback(drawChart);
+//     function drawChart() {
+//         console.log('draw chart running!');
+//         let data = google.visualization.arrayToDataTable([
+//           ['Day', 'Created', 'Completed'],
+//           ['Sun',  week.day0.created, week.day0.completed],
+//           ['Mon',  week.day1.created, week.day1.completed],
+//           ['Tue',  week.day2.created, week.day2.completed],
+//           ['Wed',  week.day3.created, week.day3.completed],
+//           ['Thu',  week.day4.created, week.day4.completed],
+//           ['Fri',  week.day5.created, week.day5.completed],
+//           ['Sat',  week.day6.created, week.day6.completed],
+//         ]);
+//         let options = {
+//           title: 'Weekly Review',
+//           hAxis: {title: 'Date',  titleTextStyle: {color: 'black'}},
+//           vAxis: {minValue: 0}
+//         };
+//         let chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+//         chart.draw(data, options);
+//     }
+// }
+
 let runGoogleCharts = (week) => {
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-        console.log('draw chart running!');
-        let data = google.visualization.arrayToDataTable([
-          ['Day', 'Created', 'Completed'],
-          ['Sun',  week.day0.created, week.day0.completed],
-          ['Mon',  week.day1.created, week.day1.completed],
-          ['Tue',  week.day2.created, week.day2.completed],
-          ['Wed',  week.day3.created, week.day3.completed],
-          ['Thu',  week.day4.created, week.day4.completed],
-          ['Fri',  week.day5.created, week.day5.completed],
-          ['Sat',  week.day6.created, week.day6.completed],
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['', 'New', 'Completed'],
+          [`Sun ${week.day0.date}/${week.month}`,  week.day0.created, week.day0.completed],
+          [`Mon ${week.day1.date}/${week.month}`,  week.day1.created, week.day1.completed],
+          [`Tue ${week.day2.date}/${week.month}`,  week.day2.created, week.day2.completed],
+          [`Wed ${week.day3.date}/${week.month}`,  week.day3.created, week.day3.completed],
+          [`Thu ${week.day4.date}/${week.month}`,  week.day4.created, week.day4.completed],
+          [`Fri ${week.day5.date}/${week.month}`,  week.day5.created, week.day5.completed],
+          [`Sat ${week.day6.date}/${week.month}`,  week.day6.created, week.day6.completed]
         ]);
-        let options = {
-          title: 'Weekly Review',
-          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-          vAxis: {minValue: 0}
+
+        var options = {
+          chart: {
+            title: 'Weekly Review'
+            // subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          }
         };
-        let chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
     }
 }
 

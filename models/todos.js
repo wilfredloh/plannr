@@ -147,7 +147,7 @@ module.exports = (dbPoolInstance) => {
         });
     }
 
-    let getCreatedTodosUsingAJAX = (userId, callback) => {
+    let getCreatedTodos = (userId, callback) => {
         let firstDay = moment().startOf('week').format('D');
         let lastDay = moment().endOf('week').format('D');
         let month = moment().format('MMMM');
@@ -172,12 +172,13 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
-    let getCompletedTodosUsingAJAX = (userId, callback) => {
+    let getCompletedTodos = (userId, callback) => {
         let firstDay = moment().startOf('week').format('D');
         let lastDay = moment().endOf('week').format('D');
         let month = moment().format('MMMM');
+        let monthNum = moment().format('M');
 
-        let queryString = 'SELECT completed_day FROM todos WHERE completed_date like $1 AND completed_day BETWEEN $2 and $3 AND user_id = $4';
+        let queryString = 'SELECT completed, completed_day FROM todos WHERE completed_date like $1 AND completed_day BETWEEN $2 and $3 AND user_id = $4';
         let values = [`%${month}%`, firstDay, lastDay, userId];
 
         dbPoolInstance.query(queryString, values, (error, queryResult) => {
@@ -186,7 +187,8 @@ module.exports = (dbPoolInstance) => {
             } else {
                 if ( queryResult.rows.length > 0 ){
                     let dataObj = {
-                        results : queryResult.rows
+                        results : queryResult.rows,
+                        monthNum : monthNum
                     }
                     callback(null, dataObj);
                 } else {
@@ -228,7 +230,7 @@ module.exports = (dbPoolInstance) => {
     editTodo,
     checkTodo,
     deleteTodo,
-    getCreatedTodosUsingAJAX,
-    getCompletedTodosUsingAJAX,
+    getCreatedTodos,
+    getCompletedTodos,
   };
 };

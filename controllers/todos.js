@@ -152,25 +152,116 @@ module.exports = (db) => {
         }
     }
 
-    let showStats = (req,res) => {
+    // let showStats = (req,res) => {
+    //     if (checkCookieSession(req)) {
+    //         let userId = req.cookies.user_id;
+    //         db.account.getUserUsingId(userId, (error, user) => {
+    //             // db.todo.getCreatedTodos(userId, (error, createdTodos) => {
+    //             if (error) {
+    //                 console.log("error in getting file", error);
+    //             } else {
+    //                 let dataSet = {
+    //                     user : user[0],
+    //                 }
+    //                 res.render('main/stats', dataSet);
+    //             }
+    //             // });
+    //         });
+    //     } else {
+    //         res.send('Log in pls. Ur cookie null or wrong la')
+    //     }
+    // }
+
+    let week;
+
+    let getStats = (req,res) => {
         if (checkCookieSession(req)) {
             let userId = req.cookies.user_id;
             db.account.getUserUsingId(userId, (error, user) => {
-                // db.todo.getCreatedTodos(userId, (error, createdTodos) => {
-                if (error) {
-                    console.log("error in getting file", error);
-                } else {
-                    let dataSet = {
-                        user : user[0],
-                    }
-                    res.render('main/stats', dataSet);
-                }
-                // });
+                db.todo.getCreatedTodos(userId, (error, createdTodos) => {
+                    db.todo.getCompletedTodos(userId, (error, completedTodos) => {
+                        if (error) {
+                            console.log("error in getting file", error);
+                        } else {
+                            let dataSet = {
+                                user : user[0],
+                                createdTodos : createdTodos,
+                                completedTodos : completedTodos
+                            }
+                            let weeklyNums = runStats(dataSet);
+                            let dataSet2 = {
+                                user : user[0],
+                                week: weeklyNums
+                            }
+                            res.render('main/stats', dataSet2);
+                        }
+                    });
+                });
             });
         } else {
             res.send('Log in pls. Ur cookie null or wrong la')
         }
+    };
+
+    let getStatsAjax = (req,res) => {
+        if (checkCookieSession(req)) {
+            res.send(week);
+        } else {
+            res.send('Log in pls. Ur cookie null or wrong la')
+        }
+    };
+
+    // HELPER FUNCTION TO RETURN WEEK OBJECT WITH # OF CREATED/COMPLETED TODOs
+    let runStats = (result) => {
+        week = {
+            day0 : {created: 0, completed: 0, date: null},
+            day1 : {created: 0, completed: 0, date: null},
+            day2 : {created: 0, completed: 0, date: null},
+            day3 : {created: 0, completed: 0, date: null},
+            day4 : {created: 0, completed: 0, date: null},
+            day5 : {created: 0, completed: 0, date: null},
+            day6 : {created: 0, completed: 0, date: null},
+        }
+        let created = result.createdTodos;
+        let completed = result.completedTodos;
+        let firstDay = parseInt(created.firstDay);
+        week.month = completed.monthNum;
+        // 1. Use FirstDay as to set Day 0
+        // 2. For every todo that has been created, loop through each one and check if (First Day + j) matches the day that the todo was created
+        // 3. If yes, add a counter to the respective day in the object week
+        for (let i=0; i < created.results.length; i++) {
+            let eachTodo = created.results[i].created_day;
+            for (let j=0; j< 7; j++) {
+                if (eachTodo === (j+firstDay)) {
+                    week[`day${j}`].created++;
+                }
+                week[`day${j}`].date = (j+firstDay);
+            }
+        }
+        for (let i=0; i < completed.results.length; i++) {
+            let eachTodo = completed.results[i].completed_day;
+            for (let j=0; j< 7; j++) {
+                if (eachTodo === (j+firstDay) && completed.results[i].completed) {
+                    week[`day${j}`].completed++;
+                }
+            }
+        }
+        let weekArr = Object.entries(week);
+        let todosCreated = 0;
+        let todosCompleted = 0;
+        // i<7 because only 7 days in a week, plus if 8 it will include the 'month' key which will cause data to be NaN
+        for (let i=0; i<7; i++) {
+            todosCreated += weekArr[i][1].created;
+            todosCompleted += weekArr[i][1].completed;
+        }
+        let weeklyNums = {
+            created : todosCreated,
+            completed : todosCompleted
+        }
+        return weeklyNums;
     }
+
+
 
   /**
    * ===========================================
@@ -185,7 +276,9 @@ module.exports = (db) => {
     editTodo,
     deleteTodo,
     showTips,
-    showStats,
+    // showStats,
+    getStats,
+    getStatsAjax,
   };
 
 }
