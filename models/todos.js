@@ -1,10 +1,11 @@
 const sha256 = require('js-sha256');
+const moment = require('moment');
 /**
  * ===========================================
  * Export model functions as a module
  * ===========================================
  */
-let months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+
 
 
 module.exports = (dbPoolInstance) => {
@@ -13,21 +14,11 @@ module.exports = (dbPoolInstance) => {
 
     let addTodo = (userId, newTodo, callback) => {
 
-        let d = new Date();
-        let formattedMinutes = d.getMinutes();
-        let formattedSeconds = d.getSeconds();
+        let createdDate = createMoment();
+        let createdDay = createMomentDay();
 
-        if (formattedMinutes < 10) {
-            formattedMinutes = `0${d.getMinutes()}`
-        }
-        if (formattedSeconds < 10) {
-            formattedSeconds = `0${d.getSeconds()}`
-
-        }
-        let currentDate = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()} at ${d.getHours()}:${formattedMinutes}:${formattedSeconds}`;
-
-        let queryString = `INSERT INTO todos (title, description, quadrant, user_id, created, category) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
-        let values = [ newTodo.title, newTodo.desc, newTodo.quadrant, userId, currentDate, newTodo.category ];
+        let queryString = `INSERT INTO todos (title, description, quadrant, created_date, created_day, user_id, category) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+        let values = [ newTodo.title, newTodo.desc, newTodo.quadrant, createdDate, createdDay, userId, newTodo.category ];
         dbPoolInstance.query(queryString, values, (error, queryResult) => {
             if (error) {
                 callback(error, null);
@@ -42,7 +33,6 @@ module.exports = (dbPoolInstance) => {
     };
 
     let getAllTodos = (userId, callback) => {
-
         let queryString = 'SELECT * FROM todos WHERE user_id = $1';
         let values = [userId];
 
@@ -96,22 +86,10 @@ module.exports = (dbPoolInstance) => {
     };
 
     let editTodo = (todoId, editedTodo, callback) => {
+        let editedDate = createMoment();
 
-        let d = new Date();
-        let formattedMinutes = d.getMinutes();
-        let formattedSeconds = d.getSeconds();
-
-        if (formattedMinutes < 10) {
-            formattedMinutes = `0${d.getMinutes()}`
-        }
-        if (formattedSeconds < 10) {
-            formattedSeconds = `0${d.getSeconds()}`
-
-        }
-        let currentDate = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()} at ${d.getHours()}:${formattedMinutes}:${formattedSeconds}`;
-
-        let queryString = 'UPDATE todos SET title = $1, description = $2, edited = $3, quadrant = $4 WHERE id = $5';
-        let values = [ editedTodo.title, editedTodo.description, currentDate, editedTodo.quadrant, todoId ];
+        let queryString = 'UPDATE todos SET title = $1, description = $2, edited_date = $3, quadrant = $4 WHERE id = $5';
+        let values = [ editedTodo.title, editedTodo.description, editedDate, editedTodo.quadrant, todoId ];
 
         dbPoolInstance.query(queryString, values, (error, queryResult) => {
             if( error ){
@@ -128,12 +106,16 @@ module.exports = (dbPoolInstance) => {
 
     let checkTodo = (checkDone, todoId, callback) => {
 
+        let completedDate = createMoment();
+        let completedDay = createMomentDay();
+
         let toggle = true;
         if (checkDone) {
             toggle = false;
         }
-        let queryString = 'UPDATE todos SET completed = $1 WHERE id = $2 RETURNING id, completed';
-        values = [ toggle, todoId ];
+
+        let queryString = 'UPDATE todos SET completed = $1, completed_date = $2, completed_day = $3 WHERE id = $4 RETURNING id, completed, completed_date';
+        values = [ toggle, completedDate, completedDay, todoId ];
         dbPoolInstance.query(queryString, values, (error, queryResult) => {
             if( error ){
                 callback(error, null);
@@ -165,12 +147,121 @@ module.exports = (dbPoolInstance) => {
         });
     }
 
-      return {
-        addTodo,
-        getAllTodos,
-        getCurrentTodo,
-        editTodo,
-        checkTodo,
-        deleteTodo,
+    let getCreatedTodosUsingAJAX = (userId, callback) => {
+        // let current = moment().subtract(6, 'days').startOf('day').calendar();
+        let firstDay = moment().startOf('week').format('D');
+        let lastDay = moment().endOf('week').format('D');
+        let month = moment().format('MMMM');
+        // let to_date = moment().endOf('week').format('YYYY-MM-DD');
+        // var date = moment("2013-03-24");
+        var date = moment("2010-03-24");
+        let now = moment().format('D');
+
+
+        if (now > moment().endOf('week')) {
+            console.log('correct')
+        } else {
+            console.log('wrong')
+        }
+
+        let queryString = 'SELECT created_day FROM todos WHERE created_date like $1 AND created_day BETWEEN $2 and $3 AND user_id = $4';
+        let values = [`%${month}%`, firstDay, lastDay, userId];
+
+        dbPoolInstance.query(queryString, values, (error, queryResult) => {
+            console.log("queryResult", queryResult.rows);
+
+            if( error ){
+                callback(error, null);
+            } else {
+                if ( queryResult.rows.length > 0 ){
+                    let dataObj = {
+                        firstDay : firstDay,
+                        lastDay : lastDay,
+                        now : now,
+                        results : queryResult.rows
+                    }
+                    callback(null, dataObj);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+    let getCompletedTodosUsingAJAX = (userId, callback) => {
+        // let current = moment().subtract(6, 'days').startOf('day').calendar();
+        let firstDay = moment().startOf('week').format('D');
+        let lastDay = moment().endOf('week').format('D');
+        let month = moment().format('MMMM');
+        // let to_date = moment().endOf('week').format('YYYY-MM-DD');
+        // var date = moment("2013-03-24");
+        var date = moment("2010-03-24");
+        let now = moment().format('D');
+
+
+        if (now > moment().endOf('week')) {
+            console.log('correct')
+        } else {
+            console.log('wrong')
+        }
+
+        let queryString = 'SELECT created_day FROM todos WHERE created_date like $1 AND created_day BETWEEN $2 and $3 AND user_id = $4';
+        let values = [`%${month}%`, firstDay, lastDay, userId];
+
+        dbPoolInstance.query(queryString, values, (error, queryResult) => {
+            console.log("queryResult", queryResult.rows);
+
+            if( error ){
+                callback(error, null);
+            } else {
+                if ( queryResult.rows.length > 0 ){
+                    let dataObj = {
+                        firstDay : firstDay,
+                        lastDay : lastDay,
+                        now : now,
+                        results : queryResult.rows
+                    }
+                    callback(null, dataObj);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+    // HELPER FUNCTION TO CREATE DATE
+    let createNewDate = () => {
+        let months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+        let d = new Date();
+        let formattedMinutes = d.getMinutes();
+        let formattedSeconds = d.getSeconds();
+
+        if (formattedMinutes < 10) {
+            formattedMinutes = `0${d.getMinutes()}`
+        }
+        if (formattedSeconds < 10) {
+            formattedSeconds = `0${d.getSeconds()}`
+
+        }
+        let currentDate = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()} at ${d.getHours()}:${formattedMinutes}:${formattedSeconds}`;
+        return currentDate;
+    }
+
+    let createMoment = () => {
+        return moment().format('D MMMM YYYY');
+    }
+    let createMomentDay = () => {
+        return moment().format('D');
+    }
+
+  return {
+    addTodo,
+    getAllTodos,
+    getCurrentTodo,
+    editTodo,
+    checkTodo,
+    deleteTodo,
+    getCreatedTodosUsingAJAX,
+    getCompletedTodosUsingAJAX,
   };
 };

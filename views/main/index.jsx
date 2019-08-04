@@ -14,26 +14,26 @@ class Index extends React.Component {
       <FrontLayout title={headerTitle}>
 
                                 {/*   Section A    */}
-        <section class="section-a">
-          <div class="container">
+        <section className="section-a">
+          <div className="container">
             <div>
               <h1>Plan for anything.</h1>
               <p>
               Plannr is the easiest way to get stuff done. Whether you’re planning a holiday, sharing a shopping list with a partner or managing multiple work projects, Plannr is here to help you tick off all your personal and professional to-dos.
               Plannr is the only productivity app you need to *actually* get things done.
               </p>
-              <a href="/register" class="btn btn-outline-primary">Create Account</a>
+              <a href="/register" className="btn btn-outline-primary">Create Account</a>
             </div>
             <img src="https://www.any.do/v4/images/translations/en/to-do-list/main-image@2x.jpg" alt="" />
           </div>
         </section>
 
                                 {/*   Section B    */}
-        <section id="about" class="section-b">
-          <div class="overlay">
-            <div class="section-b-inner">
-              <h2 class="text-5">Focus on what matters most</h2>
-              <p class="mt-1">
+        <section id="about" className="section-b">
+          <div className="overlay">
+            <div className="section-b-inner">
+              <h2 className="text-5">Focus on what matters most</h2>
+              <p className="mt-1">
                 Manage everything from big projects to personal moments.
                 A single place for your notes, ideas, lists and reminders.
                 Nothing falls through the cracks.
@@ -42,8 +42,8 @@ class Index extends React.Component {
           </div>
         </section>
                                 {/*   Section A    */}
-        <section class="section-a">
-          <div class="container">
+        <section className="section-a">
+          <div className="container">
             <img src="https://www.any.do/v4/images/translations/en/to-do-list/main-image@2x.jpg" alt="" />
             <div>
               <h2>Never worry about forgetting things again</h2>
@@ -55,10 +55,10 @@ class Index extends React.Component {
         </section>
                                 {/*   Section A    */}
 
-        <section class="section-a">
-          <div class="container">
+        <section className="section-a">
+          <div className="container">
               <h2>Unclutter your mind with Plannr</h2>
-              <a href="/register" class="btn btn-outline-primary">Create Account</a>
+              <a href="/register" className="btn btn-outline-primary">Create Account</a>
           </div>
         </section>
 
@@ -89,18 +89,18 @@ module.exports = Index;
 
 
     <!-- Footer -->
-    <footer class="section-footer py-4 bg-primary">
-      <div class="container">
+    <footer className="section-footer py-4 bg-primary">
+      <div className="container">
         <div>
-          <h2 class="text-2 mb-1">Lorem ipsum dolor sit.</h2>
+          <h2 className="text-2 mb-1">Lorem ipsum dolor sit.</h2>
           <a href="http://twitter.com">
-            <i class="fab fa-twitter fa-2x"></i>
+            <i className="fab fa-twitter fa-2x"></i>
           </a>
           <a href="http://facebook.com">
-            <i class="fab fa-facebook fa-2x"></i>
+            <i className="fab fa-facebook fa-2x"></i>
           </a>
           <a href="http://youtube.com">
-            <i class="fab fa-youtube fa-2x"></i>
+            <i className="fab fa-youtube fa-2x"></i>
           </a>
         </div>
         <div>
@@ -127,22 +127,22 @@ module.exports = Index;
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </p>
           <form
-            class="mt-1"
+            className="mt-1"
             name="email-form"
             method="POST"
             data-netlify="true"
           >
-            <div class="email-form">
-              <span class="form-control-wrap"
+            <div className="email-form">
+              <span className="form-control-wrap"
                 ><input
                   type="email"
                   name="email"
                   id="email"
                   size="40"
-                  class="form-control"
+                  className="form-control"
                   placeholder="E-mail"/></span
-              ><button type="submit" value="Submit" class="form-control submit">
-                <i class="fas fa-chevron-right"></i>
+              ><button type="submit" value="Submit" className="form-control submit">
+                <i className="fas fa-chevron-right"></i>
               </button>
             </div>
           </form>

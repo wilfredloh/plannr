@@ -11,8 +11,11 @@ CREATE TABLE IF NOT EXISTS todos (
     description TEXT,
     quadrant INTEGER,
     completed BOOLEAN DEFAULT false,
-    created TEXT,
-    edited TEXT,
+    created_date TEXT,
+    created_day INTEGER,
+    edited_date TEXT,
+    completed_date TEXT,
+    completed_day INTEGER,
     user_id INTEGER,
     category INTEGER
 );

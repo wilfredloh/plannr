@@ -258,25 +258,120 @@ let checkTodo = (dataObj, event) => {
 }
 
 //////////////////////////////////////////////////////////////////////////
-//                        SET EVENT LISTENERS                           //
+//                        GOOGLE CHARTS                           //
 //////////////////////////////////////////////////////////////////////////
 
-for (let i=0; i < 4; i++ ){
-    if (document.querySelector('.addNewTaskButton')) {
-        let button = document.querySelectorAll('.addNewTaskButton')[i];
-        button.addEventListener('click', showCreateForm);
+let getData = () => {
+    let request = new XMLHttpRequest();   // new HttpRequest instance
+    let theUrl = `/statsAjax`;
+
+    request.addEventListener("load", function() {
+        // console.log(this.responseText);
+        let result = JSON.parse(this.responseText);
+        // console.log("result", result);
+
+        let weekCreate = {
+            day0 : 0,
+            day1 : 0,
+            day2 : 0,
+            day3 : 0,
+            day4 : 0,
+            day5 : 0,
+            day6 : 0
+        }
+
+        let weekComplete;
+
+        let created = result.createdTodos;
+
+        // 1. Use FirstDay as to set Day 0
+        // 2. For every todo that has been created, loop through each one and check if (First Day + j) matches the day that the todo was created
+        // 3. If yes, add a counter to the respective day in the object WeekCreate
+        for (let i=0; i < created.results.length; i++) {
+            let eachTodo = created.results[i].created_day;
+            for (let j=0; j< 7; j++) {
+                if (eachTodo === (j+parseInt(created.firstDay))) {
+                    weekCreate[`day${j}`]++;
+                    // console.log("weekCreate[`day${i}`]", weekCreate[`day${i}`]);
+                }
+            }
+            // console.log("eachTodo", eachTodo);
+            // console.log("(i+created.firstDay)", (i+parseInt(created.firstDay)));
+        }
+        // console.log('weeeeeekkkkkkkk: ',weekCreate);
+        runGoogleCharts(weekCreate, weekComplete);
+    });
+    request.open("GET", theUrl);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.send();
+    console.log('in getDataaaaaaaa')
+}
+
+let runGoogleCharts = (weekCreate, weekComplete) => {
+
+    // console.log('managed to enter google charts with dataObj!: ', dataObj)
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        console.log('draw chart running!');
+        let data = google.visualization.arrayToDataTable([
+          ['Day', 'Created', 'Completed'],
+          ['Sun',  weekCreate.day0,      0],
+          ['Mon',  weekCreate.day1,      1],
+          ['Tue',  weekCreate.day2,       1],
+          ['Wed',  weekCreate.day3,      4],
+          ['Thu',  weekCreate.day4,      1],
+          ['Fri',  weekCreate.day5,      2],
+          ['Sat',  weekCreate.day6,      2],
+        ]);
+
+        let options = {
+          title: 'Weekly Review',
+          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
+        };
+        let chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
     }
-    let bigList = document.querySelectorAll('.big-list')[i];
-    bigList.addEventListener('click', toggleTodo);
 }
 
 //////////////////////////////////////////////////////////////////////////
-//                        FUNCTIONS ON HTML FILE                           //
+//                      SET EVENT LISTENERS                          //
 //////////////////////////////////////////////////////////////////////////
 
-let logout = () => {
-    let logout = document.querySelector('#logout');
-    logout.submit();
+let setEventListeners = () => {
+    for (let i=0; i < 4; i++ ){
+        if (document.querySelector('.addNewTaskButton')) {
+            let button = document.querySelectorAll('.addNewTaskButton')[i];
+            button.addEventListener('click', showCreateForm);
+        }
+        let bigList = document.querySelectorAll('.big-list')[i];
+        bigList.addEventListener('click', toggleTodo);
+    }
 }
 
+//////////////////////////////////////////////////////////////////////////
+
+//                         ALL FUNCTIONS START HERE                     //
+
+//             CONDITIONALS BASED ON WHAT PAGE USER IS ON               //
+
+//////////////////////////////////////////////////////////////////////////
+let windowURL = new URL(window.location.href);
+let current = windowURL.pathname;
+console.log("current", current);
+
+if (current.includes('home')) {
+    console.log(' in home!');
+    setEventListeners();
+
+} else if (current.includes('stats')){
+    console.log(' in review!')
+    // window.onload = getData;
+    getData();
+}
+
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////

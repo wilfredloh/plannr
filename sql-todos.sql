@@ -1,7 +1,13 @@
-INSERT INTO todos (title, description, quadrant, user_id, category) VALUES ('Wash plates', 'take plate and wash', 4, 1, 1);
-INSERT INTO todos (title, description, quadrant, user_id, category) VALUES ('Feed dog', 'take plate and wash', 3, 1, 1);
-INSERT INTO todos (title, description, quadrant, user_id, category) VALUES ('Eat dinner', 'take plate and wash', 3, 2, 1);
-INSERT INTO todos (title, description, quadrant, user_id, category) VALUES ('eat cookie', 'take plate and wash', 2, 2, 1);
-INSERT INTO todos (title, description, quadrant, user_id, category) VALUES ('Wash clothes', 'take plate and wash', 1, 3, 1);
-INSERT INTO todos (title, description, quadrant, user_id, category) VALUES ('sweep floor', 'take plate and wash', 2, 4, 1);
-INSERT INTO todos (title, description, quadrant, user_id, category) VALUES ('watch movie', 'take plate and wash', 3, 5, 1);
+-- INSERT INTO todos (title, description, quadrant, created_date, edited_date, completed_date, user_id, category) VALUES ('Wash plates', 'take plate and wash', 4, '2 July 2019', '9 July 2019', '11 July 2019',1, 1);
+-- INSERT INTO todos (title, description, quadrant, created_date, edited_date, completed_date, user_id, category) VALUES ('Wash dog', 'take plate and wash', 2, '4 July 2019', '16 July 2019', '20 July 2019',3, 1);
+-- INSERT INTO todos (title, description, quadrant, created_date, edited_date, completed_date, user_id, category) VALUES ('Cook dinner', 'take plate and wash', 3, '6 July 2019', '16 July 2019', '20 July 2019',4, 1);
+-- INSERT INTO todos (title, description, quadrant, created_date, edited_date, completed_date, user_id, category) VALUES ('Cook dinner', 'eat plate and wash', 3, '18 July 2019', '9 July 2019', '3 June 2019',4, 1);
+-- INSERT INTO todos (title, description, quadrant, created_date, edited_date, completed_date, user_id, category) VALUES ('Wash dog', 'eat plate and wash', 2, '23 July 2019', '9 July 2019', '30 June 2019',4, 1);
+-- INSERT INTO todos (title, description, quadrant, created_date, edited_date, completed_date, user_id, category) VALUES ('Wash dog', 'take plate and wash', 4, '13 July 2019', '1 August 2019', '17 June 2019',5, 1);
+
+INSERT INTO todos (title, description, quadrant, created_date, created_day, edited_date, completed_date, completed_day, user_id, category) VALUES ('Wash plates', 'take plate and wash', 4, '2 July 2019', 2, '9 July 2019', '30 July 2019', 30, 1, 1);
+INSERT INTO todos (title, description, quadrant, created_date, created_day, edited_date, completed_date, completed_day, user_id, category) VALUES ('Wash plates', 'take plate and wash', 1, '5 July 2019', 5, '9 July 2019', '26 July 2019', 26, 1, 1);
+INSERT INTO todos (title, description, quadrant, created_date, created_day, edited_date, completed_date, completed_day, user_id, category) VALUES ('Wash plates', 'take plate and wash', 2, '7 July 2019', 7, '9 July 2019', '31 July 2019', 31, 1, 1);
+INSERT INTO todos (title, description, quadrant, created_date, created_day, edited_date, completed_date, completed_day, user_id, category) VALUES ('Wash plates', 'take plate and wash', 3, '9 July 2019', 9, '9 July 2019', '29 July 2019', 29, 1, 1);
+INSERT INTO todos (title, description, quadrant, created_date, created_day, edited_date, completed_date, completed_day, user_id, category) VALUES ('Wash plates', 'take plate and wash', 4, '11 July 2019', 11, '9 July 2019', '28 July 2019', 28, 1, 1);
+INSERT INTO todos (title, description, quadrant, created_date, created_day, edited_date, completed_date, completed_day, user_id, category) VALUES ('Wash plates', 'take plate and wash', 1, '22 July 2019', 22, '9 July 2019', '30 July 2019', 30, 1, 1);

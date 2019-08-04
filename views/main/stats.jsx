@@ -13,8 +13,11 @@ class Home extends React.Component {
       <DefaultLayout title={headerTitle} user={user}>
 
         <p>
-            https://blog.trello.com/eisenhower-matrix-productivity-tool-trello-board?source=post_page---------------------------
+            Todos created on:
         </p>
+
+       <div id="chart_div"></div>
+
 
       </DefaultLayout>
     );

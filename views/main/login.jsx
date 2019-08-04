@@ -22,12 +22,12 @@ class Login extends React.Component {
             <input type={"password"} name={"password"} required/>
             <br/>
             <br/>
-            <button type="submit" class="btn btn-outline-dark">Login</button>
+            <button type="submit" className="btn btn-outline-dark">Login</button>
         </form>
         <br/>
         <p>New to Plannr?</p>
         <form action={registerURL}>
-            <button type="submit" class="btn btn-outline-primary">Sign up now</button>
+            <button type="submit" className="btn btn-outline-primary">Sign up now</button>
         </form>
 
       </FrontLayout>

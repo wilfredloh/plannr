@@ -134,25 +134,39 @@ module.exports = (db) => {
         return false;
     };
 
-    let newBoard = (req,res) => {
-        if (checkCookieSession(req)) {
-            res.render('main/howto')
-        } else {
-            res.send('Log in pls. Ur cookie null or wrong la')
-        }
-    }
-
-    let showSprint = (req,res) => {
-        if (checkCookieSession(req)) {
-            res.render('main/howto')
-        } else {
-            res.send('Log in pls. Ur cookie null or wrong la')
-        }
-    }
-
     let showTips = (req,res) => {
         if (checkCookieSession(req)) {
-            res.render('main/howto')
+            let userId = req.cookies.user_id;
+            db.account.getUserUsingId(userId, (error, user) => {
+                if (error) {
+                    console.log("error in getting file", error);
+                } else {
+                    let dataSet = {
+                        user : user[0],
+                    }
+                    res.render('main/howto', dataSet);
+                }
+            });
+        } else {
+            res.send('Log in pls. Ur cookie null or wrong la')
+        }
+    }
+
+    let showStats = (req,res) => {
+        if (checkCookieSession(req)) {
+            let userId = req.cookies.user_id;
+            db.account.getUserUsingId(userId, (error, user) => {
+                // db.todo.getCreatedTodos(userId, (error, createdTodos) => {
+                if (error) {
+                    console.log("error in getting file", error);
+                } else {
+                    let dataSet = {
+                        user : user[0],
+                    }
+                    res.render('main/stats', dataSet);
+                }
+                // });
+            });
         } else {
             res.send('Log in pls. Ur cookie null or wrong la')
         }
@@ -171,8 +185,7 @@ module.exports = (db) => {
     editTodo,
     deleteTodo,
     showTips,
-    newBoard,
-
+    showStats,
   };
 
 }

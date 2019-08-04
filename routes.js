@@ -38,7 +38,8 @@ module.exports = (app, allModels) => {
   app.delete('/todos/:id',      todoControllerCallbacks.deleteTodo);
 
   app.get('/howto',             todoControllerCallbacks.showTips);
-
+  app.get('/stats',             todoControllerCallbacks.showStats);
+  app.get('/statsAjax',         ajaxControllerCallbacks.getStats);
 
   // AJAX TODO routes
   app.post('/todos/:q/a-add',   ajaxControllerCallbacks.addTodoAjax);

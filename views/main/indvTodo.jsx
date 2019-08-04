@@ -22,9 +22,12 @@ class Home extends React.Component {
     }
 
     let editedTodoTime = '';
-    if (todo.edited) {
-        editedTodoTime = `Last Modified: ${todo.edited}`
-
+    if (todo.edited_date) {
+        editedTodoTime = `Last Modified: ${todo.edited_date}`
+    }
+    let completedTodoTime = '';
+    if (todo.completed) {
+        completedTodoTime = `Completed on: ${todo.completed_date}`
     }
 
     return (
@@ -47,8 +50,9 @@ class Home extends React.Component {
             </select>
             <br/>
             <br/>
-            <p>Created: {todo.created}</p>
+            <p>Created: {todo.created_date}</p>
             <p>{editedTodoTime}</p>
+            <p>{completedTodoTime}</p>
 
             <button>Edit Todo</button>
         </form>

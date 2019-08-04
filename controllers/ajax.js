@@ -47,6 +47,32 @@ module.exports = (db) => {
         }
     };
 
+    let getStats = (req,res) => {
+        if (checkCookieSession(req)) {
+            let userId = req.cookies.user_id;
+            db.account.getUserUsingId(userId, (error, user) => {
+                db.todo.getCreatedTodosUsingAJAX(userId, (error, createdTodos) => {
+                    db.todo.getCompletedTodosUsingAJAX(userId, (error, completedTodos) => {
+                        if (error) {
+                            console.log("error in getting file", error);
+                        } else {
+                            let dataSet = {
+                                user : user[0],
+                                createdTodos : createdTodos,
+                                // completedTodos : completedTodos
+                            }
+                            console.log('sending datatatattaata')
+                            console.log(dataSet);
+                            res.send(dataSet);
+                        }
+                    });
+                });
+            });
+        } else {
+            res.send('Log in pls. Ur cookie null or wrong la')
+        }
+    };
+
     // Helper Function to check if current cookie session is valid      //
     let checkCookieSession = (req, res) => {
         let currentCookieSession = req.cookies.loggedin;
@@ -67,6 +93,7 @@ module.exports = (db) => {
   return {
     addTodoAjax,
     checkTodoAjax,
+    getStats,
   };
 
 }

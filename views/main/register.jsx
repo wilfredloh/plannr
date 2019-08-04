@@ -26,12 +26,12 @@ class Register extends React.Component {
 
             <br/>
             <br/>
-            <button type="submit" class="btn btn-outline-primary">Sign up</button>
+            <button type="submit" className="btn btn-outline-primary">Sign up</button>
         </form>
         <br/>
         <p>Already have an account? Login instead</p>
         <form action={loginURL}>
-            <button type="submit" class="btn btn-outline-dark">Login</button>
+            <button type="submit" className="btn btn-outline-dark">Login</button>
         </form>
 
       </FrontLayout>
