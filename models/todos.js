@@ -148,28 +148,13 @@ module.exports = (dbPoolInstance) => {
     }
 
     let getCreatedTodosUsingAJAX = (userId, callback) => {
-        // let current = moment().subtract(6, 'days').startOf('day').calendar();
         let firstDay = moment().startOf('week').format('D');
         let lastDay = moment().endOf('week').format('D');
         let month = moment().format('MMMM');
-        // let to_date = moment().endOf('week').format('YYYY-MM-DD');
-        // var date = moment("2013-03-24");
-        var date = moment("2010-03-24");
-        let now = moment().format('D');
-
-
-        if (now > moment().endOf('week')) {
-            console.log('correct')
-        } else {
-            console.log('wrong')
-        }
 
         let queryString = 'SELECT created_day FROM todos WHERE created_date like $1 AND created_day BETWEEN $2 and $3 AND user_id = $4';
         let values = [`%${month}%`, firstDay, lastDay, userId];
-
         dbPoolInstance.query(queryString, values, (error, queryResult) => {
-            console.log("queryResult", queryResult.rows);
-
             if( error ){
                 callback(error, null);
             } else {
@@ -177,7 +162,6 @@ module.exports = (dbPoolInstance) => {
                     let dataObj = {
                         firstDay : firstDay,
                         lastDay : lastDay,
-                        now : now,
                         results : queryResult.rows
                     }
                     callback(null, dataObj);
@@ -189,36 +173,19 @@ module.exports = (dbPoolInstance) => {
     };
 
     let getCompletedTodosUsingAJAX = (userId, callback) => {
-        // let current = moment().subtract(6, 'days').startOf('day').calendar();
         let firstDay = moment().startOf('week').format('D');
         let lastDay = moment().endOf('week').format('D');
         let month = moment().format('MMMM');
-        // let to_date = moment().endOf('week').format('YYYY-MM-DD');
-        // var date = moment("2013-03-24");
-        var date = moment("2010-03-24");
-        let now = moment().format('D');
 
-
-        if (now > moment().endOf('week')) {
-            console.log('correct')
-        } else {
-            console.log('wrong')
-        }
-
-        let queryString = 'SELECT created_day FROM todos WHERE created_date like $1 AND created_day BETWEEN $2 and $3 AND user_id = $4';
+        let queryString = 'SELECT completed_day FROM todos WHERE completed_date like $1 AND completed_day BETWEEN $2 and $3 AND user_id = $4';
         let values = [`%${month}%`, firstDay, lastDay, userId];
 
         dbPoolInstance.query(queryString, values, (error, queryResult) => {
-            console.log("queryResult", queryResult.rows);
-
             if( error ){
                 callback(error, null);
             } else {
                 if ( queryResult.rows.length > 0 ){
                     let dataObj = {
-                        firstDay : firstDay,
-                        lastDay : lastDay,
-                        now : now,
                         results : queryResult.rows
                     }
                     callback(null, dataObj);

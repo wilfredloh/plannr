@@ -59,10 +59,8 @@ module.exports = (db) => {
                             let dataSet = {
                                 user : user[0],
                                 createdTodos : createdTodos,
-                                // completedTodos : completedTodos
+                                completedTodos : completedTodos
                             }
-                            console.log('sending datatatattaata')
-                            console.log(dataSet);
                             res.send(dataSet);
                         }
                     });

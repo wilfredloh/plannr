@@ -266,66 +266,63 @@ let getData = () => {
     let theUrl = `/statsAjax`;
 
     request.addEventListener("load", function() {
-        // console.log(this.responseText);
         let result = JSON.parse(this.responseText);
-        // console.log("result", result);
-
-        let weekCreate = {
-            day0 : 0,
-            day1 : 0,
-            day2 : 0,
-            day3 : 0,
-            day4 : 0,
-            day5 : 0,
-            day6 : 0
+        let week = {
+            day0 : {created: 0, completed: 0},
+            day1 : {created: 0, completed: 0},
+            day2 : {created: 0, completed: 0},
+            day3 : {created: 0, completed: 0},
+            day4 : {created: 0, completed: 0},
+            day5 : {created: 0, completed: 0},
+            day6 : {created: 0, completed: 0}
         }
 
-        let weekComplete;
-
         let created = result.createdTodos;
+        let completed = result.completedTodos;
+        let firstDay = parseInt(created.firstDay);
 
         // 1. Use FirstDay as to set Day 0
         // 2. For every todo that has been created, loop through each one and check if (First Day + j) matches the day that the todo was created
-        // 3. If yes, add a counter to the respective day in the object WeekCreate
+        // 3. If yes, add a counter to the respective day in the object week
         for (let i=0; i < created.results.length; i++) {
             let eachTodo = created.results[i].created_day;
             for (let j=0; j< 7; j++) {
-                if (eachTodo === (j+parseInt(created.firstDay))) {
-                    weekCreate[`day${j}`]++;
-                    // console.log("weekCreate[`day${i}`]", weekCreate[`day${i}`]);
+                if (eachTodo === (j+firstDay)) {
+                    week[`day${j}`].created++;
                 }
             }
-            // console.log("eachTodo", eachTodo);
-            // console.log("(i+created.firstDay)", (i+parseInt(created.firstDay)));
         }
-        // console.log('weeeeeekkkkkkkk: ',weekCreate);
-        runGoogleCharts(weekCreate, weekComplete);
+
+        for (let i=0; i < completed.results.length; i++) {
+            let eachTodo = completed.results[i].completed_day;
+            for (let j=0; j< 7; j++) {
+                if (eachTodo === (j+firstDay)) {
+                    week[`day${j}`].completed++;
+                }
+            }
+        }
+        runGoogleCharts(week);
     });
     request.open("GET", theUrl);
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.send();
-    console.log('in getDataaaaaaaa')
 }
 
-let runGoogleCharts = (weekCreate, weekComplete) => {
-
-    // console.log('managed to enter google charts with dataObj!: ', dataObj)
+let runGoogleCharts = (week) => {
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
-
     function drawChart() {
         console.log('draw chart running!');
         let data = google.visualization.arrayToDataTable([
           ['Day', 'Created', 'Completed'],
-          ['Sun',  weekCreate.day0,      0],
-          ['Mon',  weekCreate.day1,      1],
-          ['Tue',  weekCreate.day2,       1],
-          ['Wed',  weekCreate.day3,      4],
-          ['Thu',  weekCreate.day4,      1],
-          ['Fri',  weekCreate.day5,      2],
-          ['Sat',  weekCreate.day6,      2],
+          ['Sun',  week.day0.created, week.day0.completed],
+          ['Mon',  week.day1.created, week.day1.completed],
+          ['Tue',  week.day2.created, week.day2.completed],
+          ['Wed',  week.day3.created, week.day3.completed],
+          ['Thu',  week.day4.created, week.day4.completed],
+          ['Fri',  week.day5.created, week.day5.completed],
+          ['Sat',  week.day6.created, week.day6.completed],
         ]);
-
         let options = {
           title: 'Weekly Review',
           hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
