@@ -149,7 +149,7 @@ class Board extends React.Component {
                 </div>
                 <div className="quadrants" data-id="4">
                     <div className="quadrant-head-container">
-                        <span className="quadrant-header">Do Last</span>
+                        <span className="quadrant-header">Don't Do</span>
                         <span>{addButton}</span>
                     </div>
                     <ul className="big-list">

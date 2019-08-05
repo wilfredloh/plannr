@@ -48,7 +48,7 @@ class Welcome extends React.Component {
                     <div class="col-md-3">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Create New Board</h4>
+                                <h4 class="title">Start Something New</h4>
                                 <CreateBoardBlock/>
                             </div>
                         </div>
@@ -103,7 +103,7 @@ class Welcome extends React.Component {
         <footer class="footer">
             <div class="container-fluid">
                 <p class="copyright">
-                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="">Plannr</a>, the Efficiency Planner.
+                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="">Plannr</a>, the Productive App
                 </p>
             </div>
         </footer>

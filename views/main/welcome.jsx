@@ -26,7 +26,7 @@ class Welcome extends React.Component {
                 <h2>Getting Started</h2>
                 <br/>
                 <br/>
-                <a href="/howto"><button type="button" class="btn btn-primary">Read Starter Guide</button></a>
+                <a href="/howto"><button type="button" class="btn btn-info">Read Starter Guide</button></a>
 
             </div>
             <div className="welcome-block-two">

@@ -18,7 +18,7 @@ class FrontLayout extends React.Component {
             <div className="container">{this.props.children}</div>
             <hr/>
             <p class="copyright">
-                &copy; <script>document.write(new Date().getFullYear())</script> <a href="">Plannr</a>, the Efficiency Planner.
+                &copy; <script>document.write(new Date().getFullYear())</script> <a href="">Plannr</a>, the Productive App
             </p>
         </body>
 

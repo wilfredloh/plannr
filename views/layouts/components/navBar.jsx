@@ -31,18 +31,14 @@ class NavBar extends React.Component {
                 {user.name}
               </button>
               <div className="dropdown-menu dropdown-menu-lg-right ">
-                <button className="dropdown-item" type="button"><a href="/profile">Manage Account</a>
-                </button>
-                <button className="dropdown-item" type="button"><a href="/themes">Switch Themes</a>
-                </button>
+                <a className="dropdown-item" href="/boards">Manage Boards</a>
                 <form id="logout" method="POST" action="/logout">
                     <button className="dropdown-item" type="submit">Sign Out</button>
                 </form>
               </div>
             </div>
             <div className="menu2">
-                <button className="dropdown-item" type="button"><a href="/profile">Manage Account</a></button>
-                <button className="dropdown-item" type="button"><a href="/themes">Switch Themes</a></button>
+                <a className="dropdown-item" href="/boards">Manage Boards</a>
                 <form id="logout" method="POST" action="/logout">
                     <button className="dropdown-item" type="submit">Sign Out</button>
                 </form>

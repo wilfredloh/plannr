@@ -1,77 +1,16 @@
-.card {
-	border-radius: 20px;
-	padding: 10px;
-	margin: 1rem 0 2rem;
-	overflow: auto;
-	max-height: 550px;
-}
-
-.card a {
-	text-decoration: none;
-}
-
-.board-container {
-	display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 2rem;
-  margin-top: 3rem;
-}
-
-.board-block {
-	height: 200px;
-	margin: 10px;
-	border-radius: 10px;
-	background-image: url(https://www.psdgraphics.com/file/light-wooden-background.jpg);
-}
-
-.board-container a {
-	text-decoration: none;
-	font-size: 1.5rem;
-}
-
-.board-block div {
-	background-color: rgba(0,0,0,0.15);
-	width: 100%;
-	height: 100%;
-	border-radius: 10px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.board-block div p {
-	color: white;
-}
-
-.howto-learn {
-	display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 2rem;
-  margin-top: 3rem;
-}
-.howto-learn img {
-	width: 500px;
+.phone {
+	width: 300px;
 	height: auto;
 }
-
-.welcome-container {
-	display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 2rem;
-  margin-top: 3rem;
-}
-
-/*.overlay2 {
-  background-color: var(--overlay-color);
-}*/
-
 /*
 											TABLE OF CONTENTS
 0.0.0 GLOBAL
-1.1.a HOME - desktop
-2.1.a HOME - mobile responsive
+1.1.a BOARDS - desktop
+2.1.a BOARDS - mobile responsive
 3.1.a STATS
-4.1.a INDEX
+4.1.a DASHABOARD
+5.1.a INDEX
+
 */
 
 /*																																						//
@@ -111,9 +50,12 @@ input[type=checkbox] {
 input[type="checkbox"]:checked {
    background-color: black;
 }
+.copyright a {
+	color: #48a3b8;
+}
 
 /*																																						//
-1.1.a HOME - desktop
+1.1.a BOARDS - desktop
 																																							*/
 
 .welcome-title {
@@ -149,12 +91,13 @@ input[type="checkbox"]:checked {
 	justify-content: space-between;
 	margin: 10px 0 10px 0;
 	font-size: 20px;
+	/*background-color: black;*/
 }
 
 .quadrant-header {
 	margin-left: 30px;
 	font-weight: 600;
-	color: #1e1e1e;
+	color: #3B3C36;
 }
 
 .big-list {
@@ -269,7 +212,7 @@ input[type="checkbox"]:checked {
 }
 
 /* 																																						//
-2.1.a HOME - mobile responsive
+2.1.a BOARDS - mobile responsive
 																																							*/
 
 @media only screen and (max-width: 768px) {
@@ -361,8 +304,92 @@ input[type="checkbox"]:checked {
 	height: 500px
 }
 
+.weekly-stats {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2rem;
+  margin-top: 3rem;
+}
+
+/*.week-card {
+	background-color: #48a3b8;
+	border-radius: 20px;
+}
+
+.week-card h2, p{
+	color: white;
+}*/
+
+
 /* 																																						//
-4.1.a INDEX
+4.1.a DASHBOARD
+																																							*/
+
+.card {
+	border-radius: 20px;
+	padding: 10px;
+	margin: 1rem 0 2rem;
+	overflow: auto;
+	max-height: 550px;
+}
+
+.card a {
+	text-decoration: none;
+	color: #48a3b8;
+}
+
+.board-container {
+	display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2rem;
+  margin-top: 3rem;
+}
+
+.board-block {
+	height: 200px;
+	margin: 10px;
+	border-radius: 10px;
+	background-image: url(https://www.psdgraphics.com/file/light-wooden-background.jpg);
+}
+
+.board-container a {
+	text-decoration: none;
+	font-size: 1.5rem;
+}
+
+.board-block div {
+	background-color: rgba(0,0,0,0.15);
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.board-block div p {
+	color: white;
+}
+
+.howto-learn {
+	display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
+  margin-top: 3rem;
+}
+.howto-learn img {
+	width: 500px;
+	height: auto;
+}
+
+.welcome-container {
+	display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
+  margin-top: 3rem;
+}
+/* 																																						//
+5.1.a INDEX
 																																							*/
 
 .body-index {
@@ -445,6 +472,10 @@ input[type="checkbox"]:checked {
   background-color: var(--overlay-color);
 }
 
+.section-c {
+	background: #eaeaea;
+}
+
 .section-c .container {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
@@ -456,6 +487,14 @@ input[type="checkbox"]:checked {
 .section-c img {
 	height: 40rem;
 	width: 100%;
+}
+
+.container-d {
+	height: 900px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 /*
 @media (max-width: 700px) {

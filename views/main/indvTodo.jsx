@@ -34,18 +34,19 @@ class Home extends React.Component {
       <DefaultLayout title={headerTitle} user={user}>
 
         <form method="POST" action={editURL}>
-            <p>Title</p>
+            <h2>Task</h2>
+            <br/>
             <input id="input-title" name = "title" defaultValue = {todo.title}/>
             <p>Description</p>
             <textarea id="input-desc" name = "description" defaultValue = {todo.description}/>
             <br/>
-            <p>Current Priority: {currentQuadrant}</p>
-            <p>Set Priority:</p>
+            <p>Current Priority: <strong>{currentQuadrant}</strong></p>
+            <p><em>Set Priority:</em></p>
             <select name="quadrant">
                 <option value="1">Do First</option>
                 <option value="2">Schedule</option>
                 <option value="3">Delegate</option>
-                <option value="4">Do Last</option>
+                <option value="4">Don't Do</option>
             </select>
             <br/>
             <br/>
@@ -53,11 +54,11 @@ class Home extends React.Component {
             <p>{editedTodoTime}</p>
             <p>{completedTodoTime}</p>
 
-            <button>Edit Todo</button>
+            <button className="btn btn-outline-dark">Make Changes</button>
         </form>
-
+        <br/>
         <form method="POST" action={deleteURL}>
-            <button>Delete Todo</button>
+            <button className="btn btn-outline-danger">Delete Task</button>
         </form>
 
       </DefaultLayout>

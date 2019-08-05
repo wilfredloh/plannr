@@ -8,6 +8,7 @@ class Home extends React.Component {
     let headerTitle = 'How To | Plannr';
     let user = this.props.user;
     let week = this.props.week;
+    let productivity = `${Math.floor((week.completed)/(week.created)*100)}%`
 
     let chartDiv = '';
     let stats = 'No stats to show!';
@@ -15,10 +16,10 @@ class Home extends React.Component {
     if (week.created || week.completed) {
        chartDiv = <div id="columnchart_material"></div>
        stats =
-        <div>
-           <p> This week </p>
-           <p>{week.created} new todos created</p>
-           <p>{week.completed} todos completed</p>
+        <div className="weekly-stats">
+           <div className="week-card"><h2>{week.created}</h2><p>new todos created</p></div>
+           <div className="week-card"><h2>{week.completed}</h2><p>todos completed</p></div>
+           <div className="week-card"><h2>{productivity}</h2><p>productive</p></div>
         </div>
     }
 
