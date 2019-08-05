@@ -110,8 +110,7 @@ class Board extends React.Component {
 
     return (
       <DefaultLayout title={headerTitle} user={user}>
-        <div className="welcome-title"> Welcome, {this.props.user.name} </div>
-        <div className="board-title"> The {this.props.board.title} board</div>
+        <div className="welcome-title"> The {this.props.board.title} board</div>
         <div className="view-container">
             <a href={boardURLCurrent}>{currentButton}</a>
             <a href={boardURLCompleted}>{completeButton}</a>

@@ -14,11 +14,14 @@ module.exports = (db) => {
             let userId = req.cookies.user_id;
             let newTodo = req.body;
             db.todo.addTodo(userId, newTodo, (error, createdTodo) => {
-                if (error) {
-                    console.log("error in getting file", error);
-                } else {
-                    res.send(createdTodo);
-                }
+                let message = 'You added a todo';
+                db.todo.addNotification( message, userId, (error, message) => {
+                    if (error) {
+                        console.log("error in getting file", error);
+                    } else {
+                        res.send(createdTodo);
+                    }
+                });
             });
         } else {
             res.send('Log in pls. Ur cookie null or wrong la')
@@ -27,16 +30,20 @@ module.exports = (db) => {
 
     let checkTodoAjax = (req, res) => {
         if (checkCookieSession(req)) {
+            let userId = req.cookies.user_id;
             let todoId = req.body.todoId;
             db.todo.getCurrentTodo(todoId, (error, todo) => {
                 if (todo) {
                     let checkDone = todo[0].completed;
                     db.todo.checkTodo(checkDone, todoId, (error, updatedTodo) => {
-                        if (error) {
-                            console.log("error in getting file", error);
-                        } else {
-                            res.send(updatedTodo[0]);
-                        }
+                        let message = 'You completed a todo';
+                        db.todo.addNotification( message, userId, (error, message) => {
+                            if (error) {
+                                console.log("error in getting file", error);
+                            } else {
+                                res.send(updatedTodo[0]);
+                            }
+                        });
                     });
                 } else {
                     res.send('no todo from query search!!!!!!');

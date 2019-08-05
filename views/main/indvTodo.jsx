@@ -1,6 +1,5 @@
 const React = require("react");
 const DefaultLayout = require('../layouts/default');
-const TweetBlock = require('../components/userTweetBlock');
 
 
 class Home extends React.Component {

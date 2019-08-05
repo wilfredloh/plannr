@@ -13,8 +13,6 @@ module.exports = (dbPoolInstance) => {
     // `dbPoolInstance` is accessible within this function scope
 
     let addTodo = (userId, newTodo, callback) => {
-        console.log("userId", userId);
-        console.log("newTodo", newTodo);
 
         let createdDate = createMoment();
         let createdDay = createMomentDay();
@@ -22,7 +20,6 @@ module.exports = (dbPoolInstance) => {
         let queryString = `INSERT INTO todos (title, description, quadrant, created_date, created_day, user_id, board_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
         let values = [ newTodo.title, newTodo.desc, newTodo.quadrant, createdDate, createdDay, userId, newTodo.boardId ];
         dbPoolInstance.query(queryString, values, (error, queryResult) => {
-            console.log("queryResult", queryResult);
             if (error) {
                 callback(error, null);
             } else {
@@ -209,6 +206,24 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
+    let getBoardFromTodo = (todoId, userId, callback) => {
+
+        let queryString = 'SELECT board_id FROM todos WHERE user_id = $1 and id = $2';
+        let values = [userId, todoId];
+
+        dbPoolInstance.query(queryString, values, (error, queryResult) => {
+            if( error ){
+                callback(error, null);
+            } else {
+                if ( queryResult.rows.length > 0 ){
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
     // PROJECT PAGE
 
     // let getAllProjects = (userId, callback) => {
@@ -350,6 +365,7 @@ module.exports = (dbPoolInstance) => {
     addBoard,
     getAllBoards,
     getCurrentBoard,
+    getBoardFromTodo,
     // getAllProjects,
     // getCurrentProject,
     getCreatedTodos,
