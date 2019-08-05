@@ -8,7 +8,7 @@ class Boards extends React.Component {
     let headerTitle = 'Boards | Plannr';
     let user = this.props.user;
 
-    let boardArr = 'Empty';
+    let boardArr = 'Nothing to show';
     if (this.props.board) {
         let boards = this.props.board;
         boardArr = boards.map( (board, i)=> {

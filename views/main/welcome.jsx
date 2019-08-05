@@ -12,20 +12,34 @@ class Welcome extends React.Component {
 
       <DefaultLayout title={headerTitle} user={user}>
 
+        <br/>
+        <br/>
         <h1> Welcome to Plannr, {user.name}.</h1>
-        <p> Here's how you can get started: </p>
+        <br/>
+        <br/>
+        <h4> Here's how you can get started : </h4>
+        <br/>
+        <br/>
 
-        <div className="home">
-            <h1 className="header-text"></h1>
-            <div className="home-artists">
-                <a href="/boards/create"className="home-p">Create Your First Board</a>
+        <div className="welcome-container">
+            <div className="welcome-block-one">
+                <h2>Getting Started</h2>
+                <br/>
+                <br/>
+                <a href="/howto"><button type="button" class="btn btn-primary">Read Starter Guide</button></a>
+
             </div>
-            <div className="home-songs">
-                    <a href="/howto"className="home-p">Getting Started</a>
+            <div className="welcome-block-two">
+                <h2>Create Your First Board</h2>
+                <br/>
+                <br/>
+                <CreateBoardBlock/>
             </div>
         </div>
 
-        <CreateBoardBlock/>
+
+
+
 
       </DefaultLayout>
     );

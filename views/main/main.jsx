@@ -10,24 +10,29 @@ class Welcome extends React.Component {
     let boards = this.props.boards;
     let messages = this.props.messages;
 
-    let boardsArr = boards.map( (board) => {
-        let boardURL = `/board/${board.board_id}`
-        return (
-            <div>
-                <a href={boardURL}>{board.title}</a>
-                <hr/>
-            </div>
-        )
-    });
-
-    let messagesArr = messages.map( (message) => {
-        return (
-            <div>
-                <p>{message.title} | {message.created_time}</p>
-                <hr/>
-            </div>
-        )
-    });
+    let boardsArr = '';
+    let messagesArr = '';
+    if (boards) {
+        boardsArr = boards.map((board) => {
+            let boardURL = `/board/${board.board_id}`
+            return (
+                <div>
+                    <a href={boardURL}>{board.title}</a>
+                    <hr/>
+                </div>
+            )
+        });
+    }
+    if (messages) {
+        messagesArr = messages.map( (message) => {
+            return (
+                <div>
+                    <p>{message.title} | {message.created_time}</p>
+                    <hr/>
+                </div>
+            )
+        });
+    }
 
     return (
 

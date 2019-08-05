@@ -43,6 +43,24 @@
 	color: white;
 }
 
+.howto-learn {
+	display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
+  margin-top: 3rem;
+}
+.howto-learn img {
+	width: 500px;
+	height: auto;
+}
+
+.welcome-container {
+	display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
+  margin-top: 3rem;
+}
+
 /*.overlay2 {
   background-color: var(--overlay-color);
 }*/
