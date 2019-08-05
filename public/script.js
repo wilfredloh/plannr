@@ -233,7 +233,6 @@ let checkTodo = (dataObj, event) => {
             if (!result.completed) {
                 let list = event.target.parentElement;
                 let tag = event.target.nextSibling;
-                console.log('tagggggggg: ', tag);
                 tag.classList.add('todos')
                 timer = setTimeout( () => {
                     list.style.display = 'none';

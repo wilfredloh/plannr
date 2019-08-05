@@ -37,6 +37,8 @@ module.exports = (app, allModels) => {
   app.put('/todos/:id',         todoControllerCallbacks.editTodo);
   app.delete('/todos/:id',      todoControllerCallbacks.deleteTodo);
 
+  // app.get('/projects',          todoControllerCallbacks.showProjects);
+  // app.get('/projects/:id',      todoControllerCallbacks.showProjects);
   app.get('/howto',             todoControllerCallbacks.showTips);
   app.get('/stats',             todoControllerCallbacks.getStats);
 

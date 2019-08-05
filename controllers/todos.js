@@ -172,6 +172,30 @@ module.exports = (db) => {
     //     }
     // }
 
+    let showProjects = (req, res) => {
+        if (checkCookieSession(req)) {
+            let userId = req.cookies.user_id;
+
+            db.account.getUserUsingId(userId, (error, user) => {
+                db.todo.getAllProjects(userId, (error, allProjects) => {
+                    if (error) {
+                        console.log("error in getting file", error);
+                        res.send('wrongggggg');
+                    } else {
+                        let dataSet = {
+                            user : user[0],
+                            projects : allProjects,
+                            query : req.query
+                        }
+                        res.render('main/projects', dataSet);
+                    }
+                });
+            });
+        } else {
+            res.send('Log in pls. Ur cookie null or wrong la')
+        }
+    };
+
     let week;
 
     let getStats = (req,res) => {
@@ -276,6 +300,7 @@ module.exports = (db) => {
     editTodo,
     deleteTodo,
     showTips,
+    showProjects,
     // showStats,
     getStats,
     getStatsAjax,

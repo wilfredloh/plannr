@@ -147,6 +147,26 @@ module.exports = (dbPoolInstance) => {
         });
     }
 
+    // PROJECT PAGE
+
+    // let getAllProjects = (userId, callback) => {
+    //     let queryString = 'SELECT * FROM projects INNER JOIN proj_user ON (proj_user.project_id = projects.id) WHERE proj_user.user_id = $1';
+    //     let values = [userId];
+
+    //     dbPoolInstance.query(queryString, values, (error, queryResult) => {
+    //         if( error ){
+    //             callback(error, null);
+    //         } else {
+    //             if ( queryResult.rows.length > 0 ){
+    //                 callback(null, queryResult.rows);
+    //             } else {
+    //                 callback(null, null);
+    //             }
+    //         }
+    //     });
+    // };
+
+    // STATS PAGE
     let getCreatedTodos = (userId, callback) => {
         let firstDay = moment().startOf('week').format('D');
         let lastDay = moment().endOf('week').format('D');
@@ -230,6 +250,8 @@ module.exports = (dbPoolInstance) => {
     editTodo,
     checkTodo,
     deleteTodo,
+    // getAllProjects,
+    // getCurrentProject,
     getCreatedTodos,
     getCompletedTodos,
   };
