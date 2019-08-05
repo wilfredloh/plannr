@@ -64,11 +64,18 @@ let collectNewInput = (event) => {
     let input1 = document.querySelector('.newTitle');
     let input2 = document.querySelector('.newDesc');
     let quadrant = event.target.parentElement.parentElement.parentElement.parentElement;
+
+    let windowURL = new URL(window.location.href);
+    let boardId = windowURL.pathname.charAt(7);
+
     let dataObj = {
         title: input1.value,
         desc: input2.value,
-        quadrant: quadrant.dataset.id
+        quadrant: quadrant.dataset.id,
+        boardId : boardId
     }
+
+    console.log('in collect new input');
     addTodo( dataObj, quadrant );
     let parentDiv = event.target.parentElement;
     quadrant.removeChild(parentDiv);
@@ -77,6 +84,8 @@ let collectNewInput = (event) => {
 let addTodo = (dataObj, quadrant) => {
 
     console.log('quadranntttt: ', quadrant)
+
+
 
     let request = new XMLHttpRequest();   // new HttpRequest instance
     let theUrl = `/todos/${dataObj.quadrant}/a-add`;
@@ -353,8 +362,8 @@ let windowURL = new URL(window.location.href);
 let current = windowURL.pathname;
 console.log("current", current);
 
-if (current.includes('home')) {
-    console.log(' in home!');
+if (current.includes('board')) {
+    console.log(' in board!');
     setEventListeners();
 
 } else if (current.includes('stats')){

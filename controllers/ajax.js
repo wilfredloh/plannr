@@ -13,11 +13,11 @@ module.exports = (db) => {
         if (checkCookieSession(req)) {
             let userId = req.cookies.user_id;
             let newTodo = req.body;
-            db.todo.addTodo(userId, newTodo, (error, newTodo) => {
+            db.todo.addTodo(userId, newTodo, (error, createdTodo) => {
                 if (error) {
                     console.log("error in getting file", error);
                 } else {
-                    res.send(newTodo);
+                    res.send(createdTodo);
                 }
             });
         } else {

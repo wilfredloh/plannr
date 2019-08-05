@@ -1,12 +1,12 @@
 const React = require("react");
 const DefaultLayout = require('../layouts/default');
-const TweetBlock = require('../components/userTweetBlock');
+// const TweetBlock = require('../components/userTweetBlock');
 
 
-class Home extends React.Component {
+class Board extends React.Component {
   render() {
 
-    let headerTitle = 'Home | Plannr';
+    let headerTitle = 'Board | Plannr';
 
     let todosArr1 = '';
     let todosArr2 = '';
@@ -18,6 +18,10 @@ class Home extends React.Component {
 
     let query = this.props.query;
     let user = this.props.user;
+    let boardId = this.props.boardId;
+    let board = this.props.board;
+    let boardURLCurrent = `/board/${board.board_id}?display=current`
+    let boardURLCompleted = `/board/${board.board_id}?display=completed`
 
     if (this.props.todos === null) {
 
@@ -107,9 +111,10 @@ class Home extends React.Component {
     return (
       <DefaultLayout title={headerTitle} user={user}>
         <div className="welcome-title"> Welcome, {this.props.user.name} </div>
+        <div className="board-title"> The {this.props.board.title} board</div>
         <div className="view-container">
-            <a href='/home?display=current'>{currentButton}</a>
-            <a href='/home?display=completed'>{completeButton}</a>
+            <a href={boardURLCurrent}>{currentButton}</a>
+            <a href={boardURLCompleted}>{completeButton}</a>
         </div>
         <div className="quadrant-container">
             <div className="quadrant-duo">
@@ -163,4 +168,4 @@ class Home extends React.Component {
   }
 }
 
-module.exports = Home;
+module.exports = Board;

@@ -44,7 +44,7 @@ module.exports = (db) => {
                         let dataSet = {
                             user : user[0]
                         }
-                        res.render('main/welcome', dataSet);
+                        res.redirect('/welcome');
                     }
                 });
             }

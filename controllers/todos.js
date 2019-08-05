@@ -32,6 +32,100 @@ module.exports = (db) => {
         }
     };
 
+    let showMain = (req, res) => {
+        if (checkCookieSession(req)) {
+            let userId = req.cookies.user_id;
+            db.account.getUserUsingId(userId, (error, user) => {
+                db.todo.getAllTodos(userId, (error, allTodos) => {
+                    if (error) {
+                        console.log("error in getting file", error);
+                    } else {
+                        let dataSet = {
+                            user : user[0],
+                            todos : allTodos,
+                            query : req.query
+                        }
+                        res.render('main/main', dataSet);
+                    }
+                });
+            });
+        } else {
+            res.send('Log in pls. Ur cookie null or wrong la')
+        }
+    };
+
+    let showAllBoards = (req, res) => {
+        if (checkCookieSession(req)) {
+            let userId = req.cookies.user_id;
+            db.account.getUserUsingId(userId, (error, user) => {
+                db.todo.getAllBoards(userId, (error, allBoards) => {
+                    console.log("allBoards", allBoards);
+                    if (error) {
+                        console.log("error in getting file", error);
+                    } else {
+                        let dataSet = {
+                            user : user[0],
+                            query : req.query,
+                            board : allBoards,
+                        }
+                        console.log("dataSet", dataSet);
+
+                        res.render('main/boards', dataSet);
+                    }
+                });
+            });
+        } else {
+            res.send('Log in pls. Ur cookie null or wrong la')
+        }
+    };
+
+    let showBoard = (req, res) => {
+        if (checkCookieSession(req)) {
+            let userId = req.cookies.user_id;
+            let boardId = req.params.id;
+            db.account.getUserUsingId(userId, (error, user) => {
+                db.todo.getAllTodos(boardId, (error, allTodos) => {
+                    db.todo.getCurrentBoard(userId, boardId, (error, currentBoard) => {
+                        if (error) {
+                            console.log("error in getting file", error);
+                        } else {
+                            let dataSet = {
+                                user : user[0],
+                                todos : allTodos,
+                                query : req.query,
+                                board : currentBoard[0],
+                                boardId : boardId
+                            }
+                            console.log("dataSet", dataSet);
+
+                            res.render('main/home', dataSet);
+                        }
+                    });
+                });
+            });
+        } else {
+            res.send('Log in pls. Ur cookie null or wrong la')
+        }
+    };
+
+    let showWelcome = (req, res) => {
+        if (checkCookieSession(req)) {
+            let userId = req.cookies.user_id;
+            db.account.getUserUsingId(userId, (error, user) => {
+                if (error) {
+                    console.log("error in getting file", error);
+                } else {
+                    let dataSet = {
+                        user : user[0],
+                    }
+                    res.render('main/welcome', dataSet);
+                }
+            });
+        } else {
+            res.send('Log in pls. Ur cookie null or wrong la')
+        }
+    };
+
     let showCreateTodo = (req, res) => {
         if (checkCookieSession(req)) {
             let userId = req.cookies.user_id;
@@ -54,12 +148,15 @@ module.exports = (db) => {
     let addTodo = (req, res) => {
         if (checkCookieSession(req)) {
             let userId = req.cookies.user_id;
+            let boardId = req.params.id;
             let newTodo = req.body;
-            db.todo.addTodo(userId, newTodo, (error, newTodo) => {
+            console.log("newTodo", newTodo);
+            db.todo.addTodo(userId, boardId, newTodo, (error, createdTodo) => {
+                console.log('nnew todooooo: ', createdTodo)
                 if (error) {
                     console.log("error in getting file", error);
                 } else {
-                    res.redirect('/home');
+                    res.redirect(`/board/${createdTodo[0].board_id}`);
                 }
             });
         } else {
@@ -196,6 +293,23 @@ module.exports = (db) => {
         }
     };
 
+    let createBoard = (req, res) => {
+        if (checkCookieSession(req)) {
+            let userId = req.cookies.user_id;
+            let newBoard = req.body;
+            db.todo.addBoard( newBoard, userId, (error, newBoard) => {
+                console.log("newBoard", newBoard);
+                if (error) {
+                    console.log("error in getting file", error);
+                } else {
+                    res.redirect(`/board/${newBoard[0].id}`);
+                }
+            });
+        } else {
+            res.send('Log in pls. Ur cookie null or wrong la')
+        }
+    };
+
     let week;
 
     let getStats = (req,res) => {
@@ -294,6 +408,10 @@ module.exports = (db) => {
    */
   return {
     showHome,
+    showMain,
+    showAllBoards,
+    showBoard,
+    showWelcome,
     showCreateTodo,
     addTodo,
     showEditTodo,
@@ -301,6 +419,7 @@ module.exports = (db) => {
     deleteTodo,
     showTips,
     showProjects,
+    createBoard,
     // showStats,
     getStats,
     getStatsAjax,

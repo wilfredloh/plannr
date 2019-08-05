@@ -13,13 +13,16 @@ module.exports = (dbPoolInstance) => {
     // `dbPoolInstance` is accessible within this function scope
 
     let addTodo = (userId, newTodo, callback) => {
+        console.log("userId", userId);
+        console.log("newTodo", newTodo);
 
         let createdDate = createMoment();
         let createdDay = createMomentDay();
 
-        let queryString = `INSERT INTO todos (title, description, quadrant, created_date, created_day, user_id, category) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
-        let values = [ newTodo.title, newTodo.desc, newTodo.quadrant, createdDate, createdDay, userId, newTodo.category ];
+        let queryString = `INSERT INTO todos (title, description, quadrant, created_date, created_day, user_id, board_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+        let values = [ newTodo.title, newTodo.desc, newTodo.quadrant, createdDate, createdDay, userId, newTodo.boardId ];
         dbPoolInstance.query(queryString, values, (error, queryResult) => {
+            console.log("queryResult", queryResult);
             if (error) {
                 callback(error, null);
             } else {
@@ -32,9 +35,9 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
-    let getAllTodos = (userId, callback) => {
-        let queryString = 'SELECT * FROM todos WHERE user_id = $1';
-        let values = [userId];
+    let getAllTodos = (boardId, callback) => {
+        let queryString = 'SELECT * FROM todos WHERE board_id = $1';
+        let values = [boardId];
 
         dbPoolInstance.query(queryString, values, (error, queryResult) => {
             if( error ){
@@ -147,6 +150,65 @@ module.exports = (dbPoolInstance) => {
         });
     }
 
+    let addBoard = (newBoard, userId, callback) => {
+
+        let queryString = `INSERT INTO boards (title) VALUES ($1) RETURNING id`;
+        let values = [ newBoard.title ];
+        dbPoolInstance.query(queryString, values, (error, queryResult) => {
+            let boardId = queryResult.rows[0].id;
+            let queryString2 = `INSERT INTO board_user (board_id, user_id) VALUES ($1, $2) RETURNING *`;
+            let values2 = [boardId, userId]
+
+            dbPoolInstance.query(queryString2, values2, (error, queryResult2) => {
+                if (error) {
+                    callback(error, null);
+                } else {
+                    if (queryResult.rows.length > 0) {
+                        callback(null, queryResult.rows);
+                    } else {
+                        callback(null, null);
+                    }
+                }
+            });
+        });
+    };
+
+    let getAllBoards = (userId, callback) => {
+
+        let queryString = 'SELECT * FROM boards INNER JOIN board_user ON (board_user.board_id = boards.id) WHERE board_user.user_id = $1';
+        let values = [userId];
+
+        dbPoolInstance.query(queryString, values, (error, queryResult) => {
+            if( error ){
+                callback(error, null);
+            } else {
+                if ( queryResult.rows.length > 0 ){
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+    let getCurrentBoard = (userId, boardId, callback) => {
+
+        let queryString = 'SELECT * FROM boards INNER JOIN board_user ON (board_user.board_id = boards.id) WHERE board_user.user_id = $1 AND board_user.board_id = $2';
+        let values = [userId, boardId];
+
+        dbPoolInstance.query(queryString, values, (error, queryResult) => {
+            if( error ){
+                callback(error, null);
+            } else {
+                if ( queryResult.rows.length > 0 ){
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
     // PROJECT PAGE
 
     // let getAllProjects = (userId, callback) => {
@@ -250,6 +312,9 @@ module.exports = (dbPoolInstance) => {
     editTodo,
     checkTodo,
     deleteTodo,
+    addBoard,
+    getAllBoards,
+    getCurrentBoard,
     // getAllProjects,
     // getCurrentProject,
     getCreatedTodos,

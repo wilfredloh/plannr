@@ -17,16 +17,16 @@ CREATE TABLE IF NOT EXISTS todos (
     completed_date TEXT,
     completed_day INTEGER,
     user_id INTEGER,
-    categories,
+    board_id INTEGER
 );
 
-CREATE TABLE IF NOT EXISTS projects (
+CREATE TABLE IF NOT EXISTS boards (
     id SERIAL PRIMARY KEY,
-    name TEXT
+    title TEXT
 );
 
-CREATE TABLE IF NOT EXISTS proj_user (
+CREATE TABLE IF NOT EXISTS board_user (
     id SERIAL PRIMARY KEY,
-    project_id INTEGER,
+    board_id INTEGER,
     user_id INTEGER
 )

@@ -27,18 +27,23 @@ module.exports = (app, allModels) => {
   app.post('/register',         accountControllerCallbacks.register);
   app.post('/logout',           accountControllerCallbacks.logout);
 
+  app.get('/welcome',           todoControllerCallbacks.showWelcome);
+  app.post('/board',            todoControllerCallbacks.createBoard);
+
+
   // TODO routes
-  app.get('/home',              todoControllerCallbacks.showHome);
+  // app.get('/home',              todoControllerCallbacks.showHome);
+  app.get('/home',              todoControllerCallbacks.showMain);
   // app.get('/home/all',          todoControllerCallbacks.showAll);
   app.get('/todos/:q/new',      todoControllerCallbacks.showCreateTodo);
   app.get('/todos/:id',         todoControllerCallbacks.showEditTodo);
+  app.get('/boards',            todoControllerCallbacks.showAllBoards);
+  app.get('/board/:id',         todoControllerCallbacks.showBoard);
 
   app.post('/todos',            todoControllerCallbacks.addTodo);
   app.put('/todos/:id',         todoControllerCallbacks.editTodo);
   app.delete('/todos/:id',      todoControllerCallbacks.deleteTodo);
 
-  // app.get('/projects',          todoControllerCallbacks.showProjects);
-  // app.get('/projects/:id',      todoControllerCallbacks.showProjects);
   app.get('/howto',             todoControllerCallbacks.showTips);
   app.get('/stats',             todoControllerCallbacks.getStats);
 
