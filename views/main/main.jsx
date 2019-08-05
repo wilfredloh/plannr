@@ -50,17 +50,16 @@ class Welcome extends React.Component {
                         <div class="card">
                             <div class="header">
                                 <h4 class="title"><a href="/howto">Getting Started</a></h4>
-                                <p class="category">Master the basics</p>
+                                <p class="category">Find out easy ways on how to quickly get started or master the basics to become a productivity guru.</p>
                             </div>
                         </div>
                         <div class="card">
-                            <div class="header">
-                                <h4 class="title"><a href="/stats">See Stats</a></h4>
-                                <p class="category">See activity</p>
-                            </div>
-                            <div class="content">
-                                <div id="chartHours" class="ct-chart"></div>
-                            </div>
+                            <a href="/stats">
+                                <div class="header">
+                                    <h4 class="title"><a href="/stats">See Stats</a></h4>
+                                    <p class="category">Monitor your activity with data visualization charts.</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
 
@@ -68,7 +67,7 @@ class Welcome extends React.Component {
                     <div class="col-md-3">
                     <div class="card">
                             <div class="header">
-                                <h4 class="title"><a href="/boards">See Boards</a></h4>
+                                <h4 class="title"><a href="/boards">All Boards</a></h4>
                             </div>
                             <div class="footer">
                                 <p>Recent Boards</p>

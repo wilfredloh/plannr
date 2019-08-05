@@ -1,8 +1,51 @@
 .card {
 	border-radius: 20px;
 	padding: 10px;
-	margin: 10px 0;
+	margin: 1rem 0 2rem;
+	overflow: auto;
+	max-height: 550px;
 }
+
+.card a {
+	text-decoration: none;
+}
+
+.board-container {
+	display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2rem;
+  margin-top: 3rem;
+}
+
+.board-block {
+	height: 200px;
+	margin: 10px;
+	border-radius: 10px;
+	background-image: url(https://www.psdgraphics.com/file/light-wooden-background.jpg);
+}
+
+.board-container a {
+	text-decoration: none;
+	font-size: 1.5rem;
+}
+
+.board-block div {
+	background-color: rgba(0,0,0,0.15);
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.board-block div p {
+	color: white;
+}
+
+/*.overlay2 {
+  background-color: var(--overlay-color);
+}*/
 
 /*
 											TABLE OF CONTENTS

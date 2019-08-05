@@ -14,7 +14,14 @@ class Boards extends React.Component {
         boardArr = boards.map( (board, i)=> {
             let boardURL = `/board/${board.board_id}`
             return(
-                <a href={boardURL}>Board{i+1}. {board.title}</a>
+                <a href={boardURL}>
+                    <div className="board-block">
+                        <div>
+                            <p>{board.title}</p>
+                        </div>
+                    </div>
+                </a>
+
             )
         });
     }
@@ -25,7 +32,7 @@ class Boards extends React.Component {
 
       <CreateBoardBlock/>
 
-        <div>
+        <div className="board-container">
             {boardArr}
         </div>
 
