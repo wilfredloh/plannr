@@ -9,6 +9,19 @@ class Home extends React.Component {
     let user = this.props.user;
     let week = this.props.week;
 
+    let chartDiv = '';
+    let stats = 'No stats to show!';
+
+    if (week.created || week.completed) {
+       chartDiv = <div id="columnchart_material"></div>
+       stats =
+        <div>
+           <p> This week </p>
+           <p>{week.created} new todos created</p>
+           <p>{week.completed} todos completed</p>
+        </div>
+    }
+
     return (
 
       <DefaultLayout title={headerTitle} user={user}>
@@ -18,11 +31,8 @@ class Home extends React.Component {
         </p>
 
        {/*<div id="chart_div"></div>*/}
-       <div id="columnchart_material"></div>
-       <p> This week </p>
-       <p>{week.created} new todos created</p>
-       <p>{week.completed} todos completed</p>
-
+       {chartDiv}
+       {stats}
 
       </DefaultLayout>
     );

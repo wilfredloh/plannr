@@ -1,5 +1,6 @@
 const sha256 = require('js-sha256');
-const secret = 'secretpassword9090'
+const secret = 'secretpassword9090';
+const moment = require('moment');
 
 
 module.exports = (db) => {
@@ -9,22 +10,24 @@ module.exports = (db) => {
    * Controller logic
    * ===========================================
    */
-
     let showHome = (req, res) => {
         if (checkCookieSession(req)) {
             let userId = req.cookies.user_id;
             db.account.getUserUsingId(userId, (error, user) => {
                 db.todo.getAllTodos(userId, (error, allTodos) => {
-                    if (error) {
-                        console.log("error in getting file", error);
-                    } else {
-                        let dataSet = {
-                            user : user[0],
-                            todos : allTodos,
-                            query : req.query
+                    db.todo.getAllBoards(userId, (error, allBoards) => {
+                        if (error) {
+                            console.log("error in getting file", error);
+                        } else {
+                            let dataSet = {
+                                user : user[0],
+                                todos : allTodos,
+                                query : req.query,
+                                boards: allBoards
+                            }
+                            res.render('main/home', dataSet);
                         }
-                        res.render('main/home', dataSet);
-                    }
+                    });
                 });
             });
         } else {
@@ -37,16 +40,22 @@ module.exports = (db) => {
             let userId = req.cookies.user_id;
             db.account.getUserUsingId(userId, (error, user) => {
                 db.todo.getAllTodos(userId, (error, allTodos) => {
-                    if (error) {
-                        console.log("error in getting file", error);
-                    } else {
-                        let dataSet = {
-                            user : user[0],
-                            todos : allTodos,
-                            query : req.query
-                        }
-                        res.render('main/main', dataSet);
-                    }
+                    db.todo.getAllBoards(userId, (error, allBoards) => {
+                        db.todo.getAllMessages(userId, (error, allMessages) => {
+                            if (error) {
+                                console.log("error in getting file", error);
+                            } else {
+                                let dataSet = {
+                                    user : user[0],
+                                    todos : allTodos,
+                                    query : req.query,
+                                    boards: allBoards,
+                                    messages: allMessages
+                                }
+                                res.render('main/main', dataSet);
+                            }
+                        });
+                    });
                 });
             });
         } else {
@@ -298,12 +307,14 @@ module.exports = (db) => {
             let userId = req.cookies.user_id;
             let newBoard = req.body;
             db.todo.addBoard( newBoard, userId, (error, newBoard) => {
-                console.log("newBoard", newBoard);
-                if (error) {
-                    console.log("error in getting file", error);
-                } else {
-                    res.redirect(`/board/${newBoard[0].id}`);
-                }
+                let message = 'You created a new board';
+                db.todo.addNotification( message, userId, (error, message) => {
+                    if (error) {
+                        console.log("error in getting file", error);
+                    } else {
+                        res.redirect(`/board/${newBoard[0].id}`);
+                    }
+                });
             });
         } else {
             res.send('Log in pls. Ur cookie null or wrong la')
@@ -311,6 +322,7 @@ module.exports = (db) => {
     };
 
     let week;
+    let days;
 
     let getStats = (req,res) => {
         if (checkCookieSession(req)) {
@@ -343,7 +355,11 @@ module.exports = (db) => {
 
     let getStatsAjax = (req,res) => {
         if (checkCookieSession(req)) {
-            res.send(week);
+            let timeData = {
+                week: week,
+                days: days
+            }
+            res.send(timeData);
         } else {
             res.send('Log in pls. Ur cookie null or wrong la')
         }
@@ -351,6 +367,10 @@ module.exports = (db) => {
 
     // HELPER FUNCTION TO RETURN WEEK OBJECT WITH # OF CREATED/COMPLETED TODOs
     let runStats = (result) => {
+        let firstDay = parseInt(moment().startOf('week').format('D'));
+        let lastDay = parseInt(moment().endOf('week').format('D'));
+        let month = parseInt(moment().format('M'));
+
         week = {
             day0 : {created: 0, completed: 0, date: null},
             day1 : {created: 0, completed: 0, date: null},
@@ -362,28 +382,32 @@ module.exports = (db) => {
         }
         let created = result.createdTodos;
         let completed = result.completedTodos;
-        let firstDay = parseInt(created.firstDay);
-        week.month = completed.monthNum;
+
         // 1. Use FirstDay as to set Day 0
         // 2. For every todo that has been created, loop through each one and check if (First Day + j) matches the day that the todo was created
         // 3. If yes, add a counter to the respective day in the object week
-        for (let i=0; i < created.results.length; i++) {
-            let eachTodo = created.results[i].created_day;
-            for (let j=0; j< 7; j++) {
-                if (eachTodo === (j+firstDay)) {
-                    week[`day${j}`].created++;
-                }
-                week[`day${j}`].date = (j+firstDay);
-            }
-        }
-        for (let i=0; i < completed.results.length; i++) {
-            let eachTodo = completed.results[i].completed_day;
-            for (let j=0; j< 7; j++) {
-                if (eachTodo === (j+firstDay) && completed.results[i].completed) {
-                    week[`day${j}`].completed++;
+        if (created) {
+            for (let i=0; i < created.results.length; i++) {
+                let eachTodo = created.results[i].created_day;
+                for (let j=0; j< 7; j++) {
+                    if (eachTodo === (j+firstDay)) {
+                        week[`day${j}`].created++;
+                    }
                 }
             }
         }
+        if (completed) {
+            week.month = completed.monthNum;
+            for (let i=0; i < completed.results.length; i++) {
+                let eachTodo = completed.results[i].completed_day;
+                for (let j=0; j< 7; j++) {
+                    if (eachTodo === (j+firstDay) && completed.results[i].completed) {
+                        week[`day${j}`].completed++;
+                    }
+                }
+            }
+        }
+
         let weekArr = Object.entries(week);
         let todosCreated = 0;
         let todosCompleted = 0;
@@ -391,10 +415,17 @@ module.exports = (db) => {
         for (let i=0; i<7; i++) {
             todosCreated += weekArr[i][1].created;
             todosCompleted += weekArr[i][1].completed;
+            week[`day${i}`].date = (i+firstDay);
+
         }
         let weeklyNums = {
             created : todosCreated,
             completed : todosCompleted
+        }
+        days = {
+            firstDay : firstDay,
+            lastDay : lastDay,
+            month: month
         }
         return weeklyNums;
     }

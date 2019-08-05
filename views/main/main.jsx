@@ -7,23 +7,33 @@ class Welcome extends React.Component {
 
     let user = this.props.user;
     let headerTitle = `Welcome ${user.name} | Plannr`;
+    let boards = this.props.boards;
+    let messages = this.props.messages;
+
+    let boardsArr = boards.map( (board) => {
+        let boardURL = `/board/${board.board_id}`
+        return (
+            <div>
+                <a href={boardURL}>{board.title}</a>
+                <hr/>
+            </div>
+        )
+    });
+
+    let messagesArr = messages.map( (message) => {
+        return (
+            <div>
+                <p>{message.title} | {message.created_time}</p>
+                <hr/>
+            </div>
+        )
+    });
 
     return (
 
       <DefaultLayout title={headerTitle} user={user}>
 
         <h1>{user.name}'s Dashboard</h1>
-        <p> Here's how you can get started: </p>
-
-        <div className="home">
-            <h1 className="header-text"></h1>
-            <div className="home-artists">
-                <a href="/boards/create"className="home-p">show all todos</a>
-            </div>
-            <div className="home-songs">
-                    <a href="/howto"className="home-p">Getting Started</a>
-            </div>
-        </div>
 
         <div class="content">
             <div class="container-fluid">
@@ -63,11 +73,7 @@ class Welcome extends React.Component {
                             <div class="footer">
                                 <p>Recent Boards</p>
                                 <hr/>
-                                <p>Board1</p>
-                                <hr/>
-                                <p>Board2</p>
-                                <hr/>
-                                <p>Board3</p>
+                                {boardsArr}
                             </div>
                         </div>
 
@@ -81,15 +87,8 @@ class Welcome extends React.Component {
                             </div>
 
                             <div class="content">
-                                <div class="table-full-width">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td><li>Sign contract for "What are conference organizers afraid of?"</li></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <hr/>
+                                {messagesArr}
                             </div>
                         </div>
                     </div>

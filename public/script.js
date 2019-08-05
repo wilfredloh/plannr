@@ -66,7 +66,7 @@ let collectNewInput = (event) => {
     let quadrant = event.target.parentElement.parentElement.parentElement.parentElement;
 
     let windowURL = new URL(window.location.href);
-    let boardId = windowURL.pathname.charAt(7);
+    let boardId = windowURL.pathname.split('/')[2];
 
     let dataObj = {
         title: input1.value,
@@ -308,19 +308,21 @@ let getData = () => {
 // }
 
 let runGoogleCharts = (week) => {
+    console.log("week", week);
+
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['', 'New', 'Completed'],
-          [`Sun ${week.day0.date}/${week.month}`,  week.day0.created, week.day0.completed],
-          [`Mon ${week.day1.date}/${week.month}`,  week.day1.created, week.day1.completed],
-          [`Tue ${week.day2.date}/${week.month}`,  week.day2.created, week.day2.completed],
-          [`Wed ${week.day3.date}/${week.month}`,  week.day3.created, week.day3.completed],
-          [`Thu ${week.day4.date}/${week.month}`,  week.day4.created, week.day4.completed],
-          [`Fri ${week.day5.date}/${week.month}`,  week.day5.created, week.day5.completed],
-          [`Sat ${week.day6.date}/${week.month}`,  week.day6.created, week.day6.completed]
+          [`Sun ${week.week.day0.date}/${week.days.month}`,  week.week.day0.created, week.week.day0.completed],
+          [`Mon ${week.week.day1.date}/${week.days.month}`,  week.week.day1.created, week.week.day1.completed],
+          [`Tue ${week.week.day2.date}/${week.days.month}`,  week.week.day2.created, week.week.day2.completed],
+          [`Wed ${week.week.day3.date}/${week.days.month}`,  week.week.day3.created, week.week.day3.completed],
+          [`Thu ${week.week.day4.date}/${week.days.month}`,  week.week.day4.created, week.week.day4.completed],
+          [`Fri ${week.week.day5.date}/${week.days.month}`,  week.week.day5.created, week.week.day5.completed],
+          [`Sat ${week.week.day6.date}/${week.days.month}`,  week.week.day6.created, week.week.day6.completed]
         ]);
 
         var options = {

@@ -280,6 +280,41 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
+    let addNotification = (message, userId, callback) => {
+        let currentTime = moment().format('MMM D, h:mm:ss a');
+        let queryString = `INSERT INTO messages (title, user_id, created_time) VALUES ($1, $2, $3) RETURNING *`;
+        let values = [ message, userId, currentTime ];
+        dbPoolInstance.query(queryString, values, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+    let getAllMessages = (userId, callback) => {
+
+        let queryString = 'SELECT * FROM messages WHERE user_id = $1 ORDER BY id DESC';
+        let values = [userId];
+
+        dbPoolInstance.query(queryString, values, (error, queryResult) => {
+            if( error ){
+                callback(error, null);
+            } else {
+                if ( queryResult.rows.length > 0 ){
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
     // HELPER FUNCTION TO CREATE DATE
     let createNewDate = () => {
         let months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
@@ -319,5 +354,7 @@ module.exports = (dbPoolInstance) => {
     // getCurrentProject,
     getCreatedTodos,
     getCompletedTodos,
+    addNotification,
+    getAllMessages,
   };
 };
