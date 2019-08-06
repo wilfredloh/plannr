@@ -1,4 +1,4 @@
-README
+PLANNR : https://quiet-beyond-84675.herokuapp.com/index
 
 1. Problem Statement
 	- The purpose of this app is to provide users with an alternative to the standard approach that you get with todo-list apps
