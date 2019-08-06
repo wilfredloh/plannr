@@ -1,7 +1,4 @@
-.phone {
-	width: 300px;
-	height: auto;
-}
+
 /*
 											TABLE OF CONTENTS
 0.0.0 GLOBAL
@@ -391,6 +388,11 @@ input[type="checkbox"]:checked {
 /* 																																						//
 5.1.a INDEX
 																																							*/
+
+.phone {
+	width: 300px;
+	height: auto;
+}
 
 .body-index {
 	background-color: #f4f4f4;

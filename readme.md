@@ -24,8 +24,10 @@ PLANNR : https://plannr-productive-app.herokuapp.com/
 	- install heroku
 
 5. Wireframe
-	- attachment wireframe.jpg
+	- https://github.com/wilfredloh/project2-plannr/blob/master/wireframe.jpg
 
-6. Inspiration
-	- https://www.getcloudapp.com/blog/productivity-apps
-	- https://zapier.com/blog/best-todo-list-apps/
+6. What I learnt
+	- There are an endless amount of features to add. 
+	- Know how to prioritize based on time and skill constraints.
+	- Setting up a solid ERD before beginning will save time later.
+	- Having a professional front-end is equally as important.
