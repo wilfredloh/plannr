@@ -13,11 +13,11 @@ class FrontLayout extends React.Component {
             <link rel="icon" type="image/png" href="/css/images/favicon.png"/>
 
         </head>
-        <body class="body-index">
+        <body className="body-index">
             <NavBarIntro/>
             <div className="container">{this.props.children}</div>
             <hr/>
-            <p class="copyright">
+            <p className="copyright">
                 &copy; <script>document.write(new Date().getFullYear())</script> <a href="">Plannr</a>, the Productive App
             </p>
         </body>

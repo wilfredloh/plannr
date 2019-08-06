@@ -29,11 +29,11 @@ CREATE TABLE IF NOT EXISTS board_user (
     id SERIAL PRIMARY KEY,
     board_id INTEGER,
     user_id INTEGER
-)
+);
 
 CREATE TABLE IF NOT EXISTS messages (
     id SERIAL PRIMARY KEY,
     title TEXT,
     user_id INTEGER,
     created_time TEXT
-)
+);

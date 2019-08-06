@@ -19,7 +19,7 @@ class CreateBoardBlock extends React.Component {
                   <div className="modal-body">
                     <form method="POST" action="/board">
                       <div className="form-group">
-                        <label for="recipient-name" className="col-form-label">Board Name:</label>
+                        <label htmlFor="recipient-name" className="col-form-label">Board Name:</label>
                         <input name="title" type="text" className="form-control" id="recipient-name"/>
                         <br/>
                          <button type="submit" className="btn btn-info">Create Board</button>

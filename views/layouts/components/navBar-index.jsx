@@ -16,10 +16,10 @@ class NavBarIntro extends React.Component {
                 {/*     TO INSERT NEW TABS WHEN FEATURES EXPAND     */}
             </ul>
             <a href="/login">
-                <button class="btn btn-light">Sign In</button>
+                <button className="btn btn-light">Sign In</button>
             </a>
             <a href="/register">
-                <button class="btn btn-primary">Create Account</button>
+                <button className="btn btn-primary">Create Account</button>
             </a>
           </div>
         </nav>

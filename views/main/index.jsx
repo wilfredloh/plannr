@@ -21,7 +21,7 @@ class FrontLayout extends React.Component {
         </head>
         <body class="body-index">
             <NavBarIntro/>
-                                  {/*   Section A    */}
+                                {/*   Section A    */}
 
         <section className="section-a">
           <div className="container">
@@ -36,10 +36,7 @@ class FrontLayout extends React.Component {
           </div>
         </section>
 
-
-
-
-                                        {/*   Section B    */}
+                                {/*   Section B    */}
         <section id="about" className="section-b">
           <div className="overlay">
             <div className="section-b-inner">
