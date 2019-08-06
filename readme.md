@@ -1,4 +1,4 @@
-A readme.md file with explanations of the problem statement, technologies used, the approach taken, installation instructions, unsolved problems etc
+README
 
 1. Problem Statement
 	- The purpose of this app is to provide users with an alternative to the standard approach that you get with todo-list apps
