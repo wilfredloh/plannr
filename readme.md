@@ -1,4 +1,4 @@
-PLANNR : https://quiet-beyond-84675.herokuapp.com/index
+PLANNR : https://plannr-productive-app.herokuapp.com/ 
 
 1. Problem Statement
 	- The purpose of this app is to provide users with an alternative to the standard approach that you get with todo-list apps
@@ -25,3 +25,7 @@ PLANNR : https://quiet-beyond-84675.herokuapp.com/index
 
 5. Wireframe
 	- attachment wireframe.jpg
+
+6. Inspiration
+	- https://www.getcloudapp.com/blog/productivity-apps
+	- https://zapier.com/blog/best-todo-list-apps/
