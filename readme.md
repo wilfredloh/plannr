@@ -19,15 +19,15 @@ PLANNR : https://plannr-productive-app.herokuapp.com/
 	- Testing code, revising with feedback and refactoring
 	- Deploying project on Heroku
 
-4. Installation instructions
-	- install node, express and relevant packages
-	- install heroku
-
-5. Wireframe
-	- https://github.com/wilfredloh/project2-plannr/blob/master/wireframe.jpg
-
-6. What I learnt
+4. What I learnt
 	- There are an endless amount of features to add. 
 	- Know how to prioritize based on time and skill constraints.
 	- Setting up a solid ERD before beginning will save time later.
 	- Having a professional front-end is equally as important.
+
+5. Installation instructions
+	- install node, express and relevant packages
+	- install heroku
+
+6. Wireframe
+	![alt_text](https://github.com/wilfredloh/project2-plannr/blob/master/wireframe.jpg)

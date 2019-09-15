@@ -82,10 +82,7 @@ let collectNewInput = (event) => {
 }
 
 let addTodo = (dataObj, quadrant) => {
-
     console.log('quadranntttt: ', quadrant)
-
-
 
     let request = new XMLHttpRequest();   // new HttpRequest instance
     let theUrl = `/todos/${dataObj.quadrant}/a-add`;
